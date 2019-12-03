@@ -8,6 +8,7 @@ public class GesTur2Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GesTur2Application.class, args);
-	}
+	}kkljlkjlkj
+                
 
 }
