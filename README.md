@@ -1,3 +1,3 @@
 GesTur
 
-Hola gente bella soy sofi
+Hola gente bella
