@@ -1,4 +1,4 @@
-package com.egg.libreria;
+package com.gestur;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
