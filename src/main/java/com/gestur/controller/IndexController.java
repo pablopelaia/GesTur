@@ -1,4 +1,4 @@
-package com.egg.libreria.controladores;
+package com.gestur.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
