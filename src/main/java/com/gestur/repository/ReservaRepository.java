@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReservaRepository extends JpaRepository<Reserva,String>{
+public interface ReservaRepository extends JpaRepository<Reserva,Integer>{
 //    NO DESCOMENTAR HASTA QUE LA BASE DE DATOS ESTÉ FORMADA
     
 //    //Todas las Reservas por nombre de actividad y nombre de pasajero(Expandible a mostrar las fechas de reserva y/o actividad) (Sin parametrizar);
