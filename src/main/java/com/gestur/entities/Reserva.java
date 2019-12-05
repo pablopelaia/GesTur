@@ -35,6 +35,17 @@ public class Reserva {
     @ManyToOne
     private Empleado empleado;
 
+    @ManyToOne
+    private Pasajero pasajero;
+
+    public Pasajero getPasajero() {
+        return pasajero;
+    }
+
+    public void setPasajero(Pasajero pasajero) {
+        this.pasajero = pasajero;
+    }
+
     public String getId() {
         return id;
     }
