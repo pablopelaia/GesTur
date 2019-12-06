@@ -19,13 +19,6 @@ public class Empleado {
     private String id;
     private String nombre;
 
-    public Empleado() {
-    }
-
-    public Empleado(String id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
 
     public String getId() {
         return id;

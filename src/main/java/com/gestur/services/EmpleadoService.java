@@ -6,6 +6,7 @@
 package com.gestur.services;
 
 import com.gestur.entities.Empleado;
+import com.gestur.exceptions.ErrorServices;
 import com.gestur.repository.EmpleadoRepository;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,18 @@ public class EmpleadoService {
     private EmpleadoRepository er;
 
     @Transactional
-    public void crearEmpleado(String nombre) {
+    public void crearEmpleado(String nombre) throws ErrorServices {
         Empleado e= new Empleado();
-       
+        validar(nombre);
         
             e.setNombre(nombre);
             er.save(e);
 
     }
     
+    public void validar(String nombre) throws ErrorServices{
+        if(nombre.isEmpty() || nombre == null){
+        throw new ErrorServices("El nombre no puede ir nulo.");
+        }
+    }
 }
