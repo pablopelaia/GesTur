@@ -8,6 +8,7 @@ package com.gestur.services;
 import com.gestur.entities.Empleado;
 import com.gestur.exceptions.ErrorServices;
 import com.gestur.repository.EmpleadoRepository;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,13 @@ public class EmpleadoService {
     public void validar(String nombre) throws ErrorServices{
         if(nombre.isEmpty() || nombre == null){
         throw new ErrorServices("El nombre no puede ir nulo.");
+        }
+    }
+    
+     public void modificarActividad(String id, String nombre){
+        Optional<Empleado> emp = er.findById(id);
+        if(emp.isPresent()){
+            er.modificarNombreEmpleado(nombre);
         }
     }
 }
