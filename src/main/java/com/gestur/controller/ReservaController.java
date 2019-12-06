@@ -8,6 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping({"","",""})
 public class ReservaController {  
     
-   //@GetMapping({"",""})
+   @GetMapping({"",""})
+   public String a(){
+       return "";
+   }
+   @GetMapping({"",""})
+   public String b(){       
+       return "";
+   }
+   
     
 }
