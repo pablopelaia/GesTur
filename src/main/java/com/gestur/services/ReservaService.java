@@ -65,6 +65,7 @@ public class ReservaService {
     }
 
     //Modifica todos a la vez
+    @Transactional
     public void modificarReserva(Date fechaActividad, Integer cantPasajeros, Integer id) throws ErrorServices {
         validarModificacion(fechaActividad, cantPasajeros, id);
         Optional<Reserva> res = resRep.findById(id);
@@ -77,7 +78,7 @@ public class ReservaService {
     }
 
     //Solo la fecha de actividad
-
+    @Transactional
     public void modificarReserva(Date fechaActividad, Integer id) throws ErrorServices {
         validarModificacion(fechaActividad, id);
         Optional<Reserva> res = resRep.findById(id);
@@ -90,6 +91,7 @@ public class ReservaService {
     }
 
     //Solo la cantidad de pasajeros
+    @Transactional
     public void modificarReserva(Integer cantPasajeros, Integer id) throws ErrorServices {
         validarModificacion(cantPasajeros, id);
         Optional<Reserva> res = resRep.findById(id);
