@@ -13,7 +13,8 @@ public class Pasajero {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private int id;
+    private String id;
+    
     private String nombre;
     private String apellido;
     private String documento;
@@ -26,11 +27,11 @@ public class Pasajero {
     public Pasajero() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
