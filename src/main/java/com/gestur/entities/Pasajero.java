@@ -1,6 +1,7 @@
 
 package com.gestur.entities;
 
+import enumeraciones.Idiomas;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,12 +14,12 @@ public class Pasajero {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private int id;
+    private String id;
     private String nombre;
     private String apellido;
     private String documento;
     private String nacionalidad;
-    private String idioma;
+    private Idiomas idioma;
     
     @ManyToOne
     private Reserva reserva;
@@ -26,11 +27,11 @@ public class Pasajero {
     public Pasajero() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -66,11 +67,11 @@ public class Pasajero {
         this.nacionalidad = nacionalidad;
     }
 
-    public String getIdioma() {
+    public Idiomas getIdioma() {
         return idioma;
     }
 
-    public void setIdioma(String idioma) {
+    public void setIdioma(Idiomas idioma) {
         this.idioma = idioma;
     }
 
@@ -81,4 +82,5 @@ public class Pasajero {
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
     }
+   
 }
