@@ -1,5 +1,6 @@
 package com.gestur.controller;
 
+import com.gestur.exceptions.ErrorServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ReservaController {
 
     @GetMapping({"", ""})
-    public String a() {
+    public String a()throws ErrorServices {
         return "";
     }
 
     @GetMapping({"", ""})
-    public String b() {
+    public String b()throws ErrorServices {
         return "";
     }
 
