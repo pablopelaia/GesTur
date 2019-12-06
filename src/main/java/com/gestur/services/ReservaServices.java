@@ -4,6 +4,7 @@ import com.gestur.entities.Pasajero;
 import com.gestur.entities.Actividad;
 import com.gestur.entities.Empleado;
 import com.gestur.entities.Reserva;
+import com.gestur.exceptions.ErrorServices;
 import com.gestur.repository.ActividadRepository;
 import com.gestur.repository.EmpleadoRepository;
 import com.gestur.repository.PasajeroRepository;
@@ -26,20 +27,10 @@ public class ReservaServices {
     private EmpleadoRepository emRep;
     @Autowired
     private PasajeroRepository pasRep;
-    /*    
-     Date fechaCarga;    
-     Date fechaActividad;
-     Integer cantPasajeros;
-     String observaciones;
-     String opinionExito;    
-     Actividad actividad;  
-     Empleado empleado;
-     Pasajero pasajero;
-     */
-
+    
     @Transactional
-    public void crearReserva(String pasajeroId, String empleadoId, String actividadId, Date fechaActividad, Integer cantPasajeros, String observaciones, String opinionExito) {
-        //Crear clase exceptions (Tal VEZ)
+    public void crearReserva(String pasajeroId, String empleadoId, String actividadId, Date fechaActividad, Integer cantPasajeros, String observaciones, String opinionExito)throws ErrorServicio {
+        validarReserva(pasajeroId, empleadoId, actividadId, fechaActividad, cantPasajeros, observaciones, opinionExito);
         Reserva reserva = new Reserva();
         Optional<Empleado> emp = empRep.findById(empleadoId);
         Optional<Actividad> act = actRep.findById(actividadId);
@@ -59,11 +50,27 @@ public class ReservaServices {
             resRep.save(reserva);
 
         } else {
-
+            throw new ErrorServices("Verifique la existencia del pasajero, empleado o actividad.");
         }
 
     }
+    
+    
+    public List<Object> buscarReserva(String actividad)throws ErrorServices{
+       validarStrings(actividad);
+       return resRep.reservaPorActividad(actividad);
+    }
     public List<Object> buscarReserva(){
-        
+       return resRep.reservaPorActividad();
+    }
+    public void validarReserva(String pasajeroId, String empleadoId, String actividadId, Date fechaActividad, Integer cantPasajeros, String observaciones, String opinionExito)throws ErrorServices{
+        if(pasajeroId==null||pasajeroId.isEmpty()||empleadoId==null||empleadoId.isEmpty()||actividadId==null||actividadId.isEmpty()||fechaActividad==null||cantPasajeros==null||observaciones==null||observaciones.isEmpty()||opinionExito==null||opinionExito.isEmpty()){
+            throw new ErrorServices("Ningún campo puede ir nulo.");
+        }        
+    }
+    public void validarStrings(String busqueda) throws ErrorServices{
+        if(busqueda.isEmpty()||busqueda==null){
+            throw new ErrorServices("Este campo no puede ir nulo.");
+        }
     }
 }
