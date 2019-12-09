@@ -18,6 +18,9 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
     @Query("SELECT c FROM Reserva c,Actividad d WHERE c.actividad_id=d.id AND d.nombre LIKE %:nombre% ORDER BY d.nombre")
     public List<Reserva> reservaPorActividad(@Param("nombre") String nombre);
 
+    @Query("SELECT c FROM Reserva c,Actividad d WHERE c.actividad_id=d.id AND d.lugar LIKE %:nombre% ORDER BY d.lugar")
+    public List<Reserva> reservaPorLugar(@Param("nombre") String nombre);
+
     //Modificar todo al mismo tiempo
     @Modifying
     @Query("UPDATE FROM Reserva c SET fechaActividad=:fechaActividad,cantPasajeros=:cantPas WHERE c.id=:id")
