@@ -3,6 +3,7 @@ package com.gestur.services;
 
 import com.gestur.entities.Pasajero;
 import com.gestur.entities.Reserva;
+import com.gestur.exceptions.ErrorServices;
 import com.gestur.repository.PasajeroRepository;
 import enumeraciones.Idiomas;
 import java.util.Optional;
@@ -18,7 +19,9 @@ public class PasajeroService {
     private PasajeroRepository pasajeroRepository;
     
     @Transactional
-    public void crear(String nombre, String apellido, String documento, String nacionalidad, Idiomas idioma, Reserva reserva){
+    public void crear(String nombre, String apellido, String documento, String nacionalidad, Idiomas idioma, Reserva reserva) throws ErrorServices{
+        
+        validaDatos (nombre, apellido, documento, nacionalidad, idioma, reserva);
         
         Pasajero pasajero = new Pasajero();
         
@@ -33,33 +36,109 @@ public class PasajeroService {
     }
     
     @Transactional
-    public void modificarPasajero (String id, String nombre, String apellido, String documento, String nacionalidad, String idioma, Reserva reserva){
+    public void modificarNombre (String id, String nombre) throws ErrorServices{
         
         Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
         if (respuesta.isPresent()){
             Pasajero pasajero = respuesta.get();
             
-            if (!nombre.equals(null)){
-                pasajero.setNombre(nombre);
-            }
+            validaDatos(nombre, pasajero.getApellido(), pasajero.getDocumento(), pasajero.getNacionalidad(), pasajero.getIdioma(), pasajero.getReserva());
             
-            if (!apellido.equals(null)){
-                pasajero.setApellido(apellido);
-            }
-            
-            if (!documento.equals(null)){
-                pasajero.setDocumento(documento);
-            }
-            
-            if (!nacionalidad.equals(null)){
-                pasajero.setNacionalidad(nacionalidad);
-            }
-            
-            if (!reserva.equals(null)){
-                pasajero.setReserva(reserva);
-            }
-            
+            pasajero.setNombre(nombre);
             pasajeroRepository.save(pasajero);
         }        
-    }   
+    }
+    
+    
+    public void modificarApellido (String id, String apellido) throws ErrorServices{
+        
+        Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
+        if (respuesta.isPresent()){
+            Pasajero pasajero = respuesta.get();
+            
+            validaDatos(pasajero.getNombre(), apellido, pasajero.getDocumento(), pasajero.getNacionalidad(), pasajero.getIdioma(), pasajero.getReserva());
+            
+            pasajero.setApellido(apellido);
+            pasajeroRepository.save(pasajero);
+        }        
+    }
+    
+    public void modificarDocumento (String id, String documento) throws ErrorServices{
+        
+        Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
+        if (respuesta.isPresent()){
+            Pasajero pasajero = respuesta.get();
+            
+            validaDatos(pasajero.getNombre(), pasajero.getApellido(), documento, pasajero.getNacionalidad(), pasajero.getIdioma(), pasajero.getReserva());
+            
+            pasajero.setDocumento(documento);
+            pasajeroRepository.save(pasajero);
+        }        
+    }
+    
+    public void modificarNacionalidad (String id, String nacionalidad) throws ErrorServices{
+        
+        Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
+        if (respuesta.isPresent()){
+            Pasajero pasajero = respuesta.get();
+            
+            validaDatos(pasajero.getNombre(), pasajero.getApellido(), pasajero.getDocumento(), nacionalidad, pasajero.getIdioma(), pasajero.getReserva());
+            
+            pasajero.setNacionalidad(nacionalidad);
+            pasajeroRepository.save(pasajero);
+        }        
+    }
+    
+    public void modificarIdioma (String id, Idiomas idioma) throws ErrorServices{
+        
+        Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
+        if (respuesta.isPresent()){
+            Pasajero pasajero = respuesta.get();
+            
+            validaDatos(pasajero.getNombre(), pasajero.getApellido(), pasajero.getDocumento(), pasajero.getNacionalidad(), idioma, pasajero.getReserva());
+            
+            pasajero.setIdioma(idioma);
+            pasajeroRepository.save(pasajero);
+        }        
+    }
+    
+    public void modificarReserva (String id, Reserva reserva) throws ErrorServices{
+        
+        Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
+        if (respuesta.isPresent()){
+            Pasajero pasajero = respuesta.get();
+            
+            validaDatos(pasajero.getNombre(), pasajero.getApellido(), pasajero.getDocumento(), pasajero.getNacionalidad(), pasajero.getIdioma(),reserva);
+            
+            pasajero.setReserva(reserva);
+            pasajeroRepository.save(pasajero);
+        }        
+    }         
+
+    private void validaDatos(String nombre, String apellido, String documento, String nacionalidad, Idiomas idioma, Reserva reserva) throws ErrorServices{
+        
+        if (nombre.isEmpty()||nombre.equals(null)){
+            throw new ErrorServices("El nombre no puede estar vacío");
+        }
+        
+        if (apellido.isEmpty()||apellido.equals(null)){
+            throw new ErrorServices("El apellido no puede estar vacío");
+        }
+        
+        if (documento.isEmpty()||documento.equals(null)){
+            throw new ErrorServices("El documento no puede estar vacío");
+        }
+        
+        if (nacionalidad.isEmpty()||nacionalidad.equals(null)){
+            throw new ErrorServices("La nacionalidad no puede estar vacío");
+        }
+        
+        if (idioma.equals(null)){
+            throw new ErrorServices("Falta ingresar idioma");
+        }
+        
+        if (reserva.equals(null)){
+            throw new ErrorServices("Falta asociar reserva");
+        }
+    }
 }
