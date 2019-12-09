@@ -21,8 +21,8 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, String>{
     public List<Empleado> empleadosPorNombre();
     
     //buscar
-    @Query("SELECT e FROM Empleado e WHERE e.nombre like %:nombre% ORDER BY e.nombre")
-    public List<Empleado> buscarEmleado(@Param("nombre") String nombre);
+    @Query("SELECT e FROM Empleado e WHERE e.nombre LIKE %:nombre% ORDER BY e.nombre")
+    public List<Empleado> buscarEmpleado(@Param("nombre") String nombre);
     
     //modificar
     @Modifying

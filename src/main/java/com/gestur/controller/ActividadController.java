@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping({"", "", ""})
-public class ReservaController {
+public class ActividadController {
 
     @GetMapping({"", ""})
     public String a()throws ErrorServices {
