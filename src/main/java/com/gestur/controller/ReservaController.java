@@ -43,7 +43,7 @@ public class ReservaController {
     public String listaReserva(@RequestParam(required = false) String nombre, ModelMap model) throws ErrorServices {
         model.addAttribute("titulo", "Listado de Reservas");
         List<Reserva> listaReserva;
-        if (nombre == null || nombre.isEmpty()) {
+        if (nombre == null) {
             listaReserva = resServ.listaReserva();
         } else {
             listaReserva = resServ.buscarReservaActividad(nombre);

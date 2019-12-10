@@ -34,7 +34,7 @@ public class EmpleadoController {
     @PostMapping("/listaEmpleado")
     public String listaEmpleado(@RequestParam(required = false) String nombre, ModelMap model) throws ErrorServices {
         List<Empleado> listaEmpleado = empServ.listaEmpleado();
-        if (nombre != null || !(nombre.isEmpty())) {
+        if (nombre != null) {
             listaEmpleado = empServ.buscarEmpleado(nombre);
         }
         model.addAttribute("listaEmpleado", listaEmpleado);

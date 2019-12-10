@@ -43,9 +43,9 @@ public class ActividadController {
 
         List<Actividad> listaActividad = actServ.listaActividad();
         model.addAttribute("titulo", "Lista de Actividades Disponibles");
-        if (nombre != null || !(nombre.isEmpty())) {
+        if (nombre != null) {
             listaActividad = actServ.buscarPorNombre(nombre);
-        } else if (lugar != null || !(lugar.isEmpty())) {
+        } else if (lugar != null) {
             listaActividad = actServ.buscarPorLugar(lugar);
         }
         model.put("listaActividad", listaActividad);

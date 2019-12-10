@@ -62,20 +62,22 @@ public class ReservaService {
 
     //Reserva por NOMBRE de ACTIVIDAD
     public List<Reserva> buscarReservaActividad(String actividad) throws ErrorServices {
-        validarStrings(actividad);
+        validarNombre(actividad);
         return resRep.reservaPorActividad(actividad);
     }
 
     //Reserva por LUGAR de ACTIVIDAD
     public List<Reserva> buscarReservaLugar(String lugar) throws ErrorServices {
-        validarStrings(lugar);
+        validarLugar(lugar);
         return resRep.reservaPorLugar(lugar);
     }
 
     //Modifica TODA una RESERVA a la vez
     @Transactional
     public void modificarReserva(Date fechaActividad, Integer cantPasajeros, Integer id) throws ErrorServices {
-        validarModificacion(fechaActividad, cantPasajeros, id);
+        validarFecha(fechaActividad);
+        validarId(id);
+        validarCantidad(cantPasajeros);
         Optional<Reserva> res = resRep.findById(id);
         if (res.isPresent()) {
             resRep.modificarReserva(fechaActividad, cantPasajeros, id);
@@ -88,7 +90,8 @@ public class ReservaService {
     //Solo la FECHA de ACTIVIDAD
     @Transactional
     public void modificarReserva(Date fechaActividad, Integer id) throws ErrorServices {
-        validarModificacion(fechaActividad, id);
+        validarId(id);
+        validarFecha(fechaActividad);
         Optional<Reserva> res = resRep.findById(id);
         if (res.isPresent()) {
             resRep.modificarFecha(fechaActividad, id);
@@ -101,7 +104,8 @@ public class ReservaService {
     //Solo la CANTIDAD de PASAJEROS
     @Transactional
     public void modificarReserva(Integer cantPasajeros, Integer id) throws ErrorServices {
-        validarModificacion(cantPasajeros, id);
+        validarCantidad(cantPasajeros);
+        validarId(id);
         Optional<Reserva> res = resRep.findById(id);
         if (res.isPresent()) {
             resRep.modificarPasajeros(cantPasajeros, id);
@@ -113,7 +117,7 @@ public class ReservaService {
 
     @Transactional
     public void borrarReserva(Integer id) throws ErrorServices {
-        validarInteger(id);
+        validarId(id);
         Optional<Reserva> res = resRep.findById(id);
         if (res.isPresent()) {
             Reserva reserva = res.get();
@@ -135,36 +139,62 @@ public class ReservaService {
         } else if (fechaActividad == null) {
             throw new ErrorServices("'Fecha de Actividad' no puede ir nulo.");
         }
-
-    }
-
-    public void validarModificacion(Date a, Integer b, Integer c) throws ErrorServices {
-        if (a == null || b == null || c == null) {
-            throw new ErrorServices("Ningún campo puede ir nulo.");
+        if (!(pasajeroId instanceof String)) {
+            throw new ErrorServices("'pasajeroId' debe ser una cadena de texto.");
+        } else if (!(empleadoId instanceof String)) {
+            throw new ErrorServices("'empleadoId' debe ser una cadena de texto.");
+        } else if (!(actividadId instanceof String)) {
+            throw new ErrorServices("'actividadId' debe ser una cadena de texto.");
+        } else if (!(fechaActividad instanceof Date)) {
+            throw new ErrorServices("'Fecha de Actividad' debe ser una Fecha.");
+        } else if (!(cantPasajeros instanceof Integer)) {
+            throw new ErrorServices("'Cantidad de Pasajeros' debe ser un número.");
         }
+
     }
 
-    public void validarModificacion(Date a, Integer c) throws ErrorServices {
-        if (a == null || c == null) {
-            throw new ErrorServices("Ningún campo puede ir nulo.");
-        }
-    }
-
-    public void validarModificacion(Integer b, Integer c) throws ErrorServices {
-        if (b == null || c == null) {
-            throw new ErrorServices("Ningún campo puede ir nulo.");
-        }
-    }
-
-    public void validarStrings(String busqueda) throws ErrorServices {
-        if (busqueda.isEmpty() || busqueda == null) {
-            throw new ErrorServices("Este campo no puede ir nulo.");
-        }
-    }
-
-    public void validarInteger(Integer a) throws ErrorServices {
+    public void validarId(Integer a) throws ErrorServices {
         if (a == null) {
-            throw new ErrorServices("Este campo no puede ir nulo.");
+            throw new ErrorServices("'ID' no puede ir nulo.");
+        }
+        if (!(a instanceof Integer)) {
+            throw new ErrorServices("'ID' debe ser un número");
+        }
+    }
+
+    public void validarCantidad(Integer a) throws ErrorServices {
+        if (a == null) {
+            throw new ErrorServices("'Cantidad de Pasajeros' no puede ir nulo.");
+        }
+        if (!(a instanceof Integer)) {
+            throw new ErrorServices("'Cantidad de Pasajeros' debe ser un número");
+        }
+    }
+
+    public void validarFecha(Date fechaActividad) throws ErrorServices {
+        if (fechaActividad == null) {
+            throw new ErrorServices("'Fecha de Actividad' no puede ir nulo.");
+        }
+        if (!(fechaActividad instanceof Date)) {
+            throw new ErrorServices("'Fecha de Actividad' debe ser una fecha");
+        }
+    }
+
+    public void validarLugar(String a) throws ErrorServices {
+        if (a == null) {
+            throw new ErrorServices("'Lugar' no puede ser nulo.");
+        }
+        if (!(a instanceof String)) {
+            throw new ErrorServices("'Lugar' debe ser una cadena de texto.");
+        }
+    }
+
+    public void validarNombre(String a) throws ErrorServices {
+        if (a == null) {
+            throw new ErrorServices("'Nombre' no puede ser nulo.");
+        }
+        if (!(a instanceof String)) {
+            throw new ErrorServices("'Nombre' debe ser una cadena de texto.");
         }
     }
 }
