@@ -21,19 +21,19 @@ public class ReservaController {
 
     @GetMapping({"/", ""})
     public String paginaPpal(ModelMap model) {
-        model.addAttribute("titulo", "Página principal de Reservas");
+        model.addAttribute("titulo", "Página Principal de Reservas");
         return "reserva.html";
     }
 
     @GetMapping("/crearReserva")
-    public String asdf(ModelMap model) {
+    public String creRes(ModelMap model) {
         model.addAttribute("titulo", "Crear Reserva");
         return "crearReserva.html";
     }
 
-    //formaction="crear" u otro que quiera cocco
+    //formaction="crear" u otro que quiera Cocco
     @GetMapping("/crearReserva/crear")
-    public String crearReserva(@RequestParam(required = false) String pasajeroId, @RequestParam(required = false) String empleadoId, @RequestParam(required = false) String actividadId, @RequestParam(required = false) Date fechaActividad, @RequestParam(required = false) Integer cantPasajeros, @RequestParam(required = false) String observaciones, @RequestParam(required = false) String opinionExito, ModelMap model, String exito) throws ErrorServices {
+    public String crearReserva(@RequestParam String pasajeroId, @RequestParam String empleadoId, @RequestParam String actividadId, @RequestParam Date fechaActividad, @RequestParam Integer cantPasajeros, @RequestParam(required = false) String observaciones, @RequestParam(required = false) String opinionExito, ModelMap model, String exito) throws ErrorServices {
         resServ.crearReserva(pasajeroId, empleadoId, actividadId, fechaActividad, cantPasajeros, observaciones, opinionExito);
         return "redirect:/listaReserva";
     }
@@ -44,7 +44,6 @@ public class ReservaController {
         List<Reserva> listaReserva;
         if (nombre == null || nombre.isEmpty()) {
             listaReserva = resServ.listaReserva();
-
         } else {
             listaReserva = resServ.buscarReservaActividad(nombre);
         }
@@ -52,41 +51,41 @@ public class ReservaController {
         return "listaReserva.html";
     }
 
-    @GetMapping("/modificarReserva")
-    public String modificar(ModelMap model) throws ErrorServices {
-        model.addAttribute("titulo", "Modifique una Reserva completa");
+    @GetMapping("/editarReserva")
+    public String edRes(ModelMap model) throws ErrorServices {
+        model.addAttribute("titulo", "Edite una Reserva completa");
         return "modificarReserva.html";
     }
 
-    @GetMapping("/modificarFecha")
-    public String modFecha(ModelMap model) throws ErrorServices {
-        model.addAttribute("titulo", "Modifique la Fecha");
-        return "modificarFecha.html";
-    }
-
-    @GetMapping("/modificarCantPas")
-    public String modPas(ModelMap model) throws ErrorServices {
-        model.addAttribute("titulo", "Modifique la Cantidad de Pasajeros");
-        return "modificarCantPas.html";
-    }
-
-    //formaction="res" u otro que quiera cocco
-    @GetMapping("/modificarReserva/res")
-    public String modificarReserva(@RequestParam Date fechaActividad, @RequestParam Integer cantPasajeros, @RequestParam(required = false) Integer id, String exito, ModelMap model) throws ErrorServices {
+    //formaction="res" u otro que quiera Cocco
+    @GetMapping("/editarReserva/res")
+    public String editarReserva(@RequestParam Date fechaActividad, @RequestParam Integer cantPasajeros, @RequestParam Integer id, String exito, ModelMap model) throws ErrorServices {
         resServ.modificarReserva(fechaActividad, cantPasajeros, id);
         return "redirect:/listaReserva";
     }
 
-    //formaction="fecha" u otro que quiera cocco
-    @GetMapping("/modificarFecha/fecha")
-    public String modificarFecha(@RequestParam Date fechaActividad, @RequestParam(required = false) Integer id, String exito, ModelMap model) throws ErrorServices {
+    @GetMapping("/editarFecha")
+    public String edFecha(ModelMap model) throws ErrorServices {
+        model.addAttribute("titulo", "Edite la Fecha");
+        return "editarFecha.html";
+    }
+
+    //formaction="fecha" u otro que quiera Cocco
+    @GetMapping("/editarFecha/fecha")
+    public String editarFecha(@RequestParam Date fechaActividad, @RequestParam Integer id, String exito, ModelMap model) throws ErrorServices {
         resServ.modificarReserva(fechaActividad, id);
         return "redirect:/listaReserva";
     }
 
-    //formaction="cantPas" u otro que quiera cocco
-    @GetMapping("/modificarCantPas/cantPas")
-    public String modificarCantPasajeros(@RequestParam Integer cantPasajeros, @RequestParam(required = false) Integer id, String exito, ModelMap model) throws ErrorServices {
+    @GetMapping("/editarCantPasajeros")
+    public String edPas(ModelMap model) throws ErrorServices {
+        model.addAttribute("titulo", "Edite la Cantidad de Pasajeros");
+        return "editarCantPas.html";
+    }
+
+    //formaction="cantPas" u otro que quiera Cocco
+    @GetMapping("/editarCantPasajeros/cantPas")
+    public String editarCantPasajeros(@RequestParam Integer cantPasajeros, @RequestParam Integer id, String exito, ModelMap model) throws ErrorServices {
         resServ.modificarReserva(cantPasajeros, id);
         return "redirect:/listaReserva";
     }
@@ -97,11 +96,11 @@ public class ReservaController {
         return "borrarReserva.html";
     }
 
-    //formaction="borrar" u otro que quiera cocco
+    //formaction="borrar" u otro que quiera Cocco
     @GetMapping("/borrarReserva/borrar")
     public String borrarReserva(@RequestParam Integer id) throws ErrorServices {
         resServ.borrarReserva(id);
         return "redirect:/listaReserva";
     }
-    //Falta un kilo de cosas, por ejemplo "Try y Catch" todas las variables, y encima falta los controllers de las 3 clases restantes. GG.
+    //Falta un kilo de cosas, por ejemplo "Try & Catch" todas las variables, y encima falta los controllers de las 3 clases restantes. GG.
 }
