@@ -40,14 +40,14 @@ public class ActividadController {
     @GetMapping("/listaActividad")
     public String listaActividad(@RequestParam(required = false) String nombre, @RequestParam(required = false) String lugar, ModelMap model) throws ErrorServices {
 
-        List<Actividad> listActividad = actServ.listaActividad();
+        List<Actividad> listaActividad = actServ.listaActividad();
         model.addAttribute("titulo", "Lista de Actividades Disponibles");
         if (nombre != null || !(nombre.isEmpty())) {
-            listActividad = actServ.buscarPorNombre(nombre);
+            listaActividad = actServ.buscarPorNombre(nombre);
         } else if (lugar != null || !(lugar.isEmpty())) {
-            listActividad = actServ.buscarPorLugar(lugar);
+            listaActividad = actServ.buscarPorLugar(lugar);
         }
-        model.put("listaActividad", listActividad);
+        model.put("listaActividad", listaActividad);
         return "listaActividad.html";
     }
 
@@ -117,8 +117,8 @@ public class ActividadController {
         return "editarLugar.html";
     }
 
-    //formaction=lug
-    @GetMapping("/editarLugar/lug")
+    //formaction=lugar
+    @GetMapping("/editarLugar/lugar")
     public String editarLugar(@RequestParam String id, @RequestParam String lugar, ModelMap model) throws ErrorServices {
         actServ.modificarLugar(id, lugar);
         return "redirect:/listaActividad";
@@ -131,8 +131,8 @@ public class ActividadController {
         return "editarPrecio.html";
     }
 
-    //formaction="pre"
-    @GetMapping("/editarPrecio/pre")
+    //formaction="precio"
+    @GetMapping("/editarPrecio/precio")
     public String editarPrecio(@RequestParam String id, @RequestParam Double precio, ModelMap model) throws ErrorServices {
         actServ.modificarPrecio(id, precio);
         return "redirect:/listaActividad";
@@ -144,10 +144,10 @@ public class ActividadController {
         return "eliminarActividad.html";
     }
 
-    //formaction="borrar"
-    @GetMapping("/borrarActividad/borrar")
+    //formaction="eliminar"
+    @GetMapping("/borrarActividad/eliminar")
     public String eliminarActividad(@RequestParam String id, ModelMap model) throws ErrorServices {
-        actServ.borrarActividad(id);
+        actServ.eliminarActividad(id);
         return "redirect:/listaActividad";
     }
 

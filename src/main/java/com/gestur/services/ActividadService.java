@@ -99,7 +99,7 @@ public class ActividadService {
     }
 
     @Transactional
-    public void borrarActividad(String id) throws ErrorServices {
+    public void eliminarActividad(String id) throws ErrorServices {
         validarID(id);
         Optional<Actividad> act = adRep.findById(id);
         if (act.isPresent()) {
