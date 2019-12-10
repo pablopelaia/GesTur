@@ -12,28 +12,28 @@ import org.springframework.stereotype.Repository;
 public interface ActividadRepository extends JpaRepository<Actividad, String> {
 
     //listar
+    @Query("SELECT a FROM Actividad a")
+    public List<Actividad> listaActividad();
+
     @Query("SELECT a FROM Actividad a ORDER BY a.lugar")
     public List<Actividad> actsPorLugar();
 
     @Query("SELECT a FROM Actividad a ORDER BY a.nombre")
     public List<Actividad> actsPorNombre();
 
-    @Query("SELECT a FROM Actividad a ORDER BY DESC a.precio ")
+    @Query("SELECT a FROM Actividad a ORDER BY a.precio DESC")
     public List<Actividad> actsPorPrecio();
 
     //buscar
-    @Query("SELECT a FROM Actividad a WHERE a.nombre like %:nombre% ORDER BY a.nombre")
+    @Query("SELECT a FROM Actividad a WHERE a.nombre LIKE %:nombre% ORDER BY a.nombre")
     public List<Actividad> buscarPorNombre(@Param("nombre") String nombre);
 
-    @Query("SELECT a FROM Actividad a WHERE a.lugar like %:lugar% ORDER BY a.lugar")
+    @Query("SELECT a FROM Actividad a WHERE a.lugar LIKE %:lugar% ORDER BY a.lugar")
     public List<Actividad> buscarPorLugar(@Param("lugar") String lugar);
-
-    @Query("SELECT a FROM Actividad a WHERE a.precio like %:precio% ORDER BY DESC a.precio ")
-    public List<Actividad> buscarPorPrecio(@Param("precio") Double precio);
 
     //modificar
     @Modifying
-    @Query("UPDATE FROM Actividad a SET a.nombre = :nombre  WHERE a.id=:id")
+    @Query("UPDATE FROM Actividad a SET a.nombre = :nombre WHERE a.id=:id")
     public void modificarNombre(@Param("nombre") String nombre, @Param("id") String id);
 
     @Modifying

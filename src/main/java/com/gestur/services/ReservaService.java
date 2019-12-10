@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReservaService {
-    
+
     @Autowired
     private ReservaRepository resRep;
     @Autowired
@@ -27,10 +27,10 @@ public class ReservaService {
     private EmpleadoRepository emRep;
     @Autowired
     private PasajeroRepository pasRep;
-    
+
     @Transactional
     public void crearReserva(String pasajeroId, String empleadoId, String actividadId, Date fechaActividad, Integer cantPasajeros, String observaciones, String opinionExito) throws ErrorServices {
-        validarReserva(pasajeroId, empleadoId, actividadId, fechaActividad, cantPasajeros, observaciones, opinionExito);
+        validarReserva(pasajeroId, empleadoId, actividadId, fechaActividad, cantPasajeros);
         Reserva reserva = new Reserva();
         Optional<Empleado> emp = emRep.findById(empleadoId);
         Optional<Actividad> act = adRep.findById(actividadId);
@@ -48,15 +48,15 @@ public class ReservaService {
             reserva.setPasajero(pasajero);
             reserva.setActividad(actividad);
             resRep.save(reserva);
-            
+
         } else {
             throw new ErrorServices("Verifique la existencia del pasajero, empleado o actividad.");
         }
-        
+
     }
 
     //Lista completa
-    public List<Reserva> buscarReserva() {
+    public List<Reserva> listaReserva() {
         return resRep.listaReserva();
     }
 
@@ -82,7 +82,7 @@ public class ReservaService {
         } else {
             throw new ErrorServices("No existe tal reserva.");
         }
-        
+
     }
 
     //Solo la FECHA de ACTIVIDAD
@@ -95,7 +95,7 @@ public class ReservaService {
         } else {
             throw new ErrorServices("No existe tal reserva.");
         }
-        
+
     }
 
     //Solo la CANTIDAD de PASAJEROS
@@ -108,9 +108,9 @@ public class ReservaService {
         } else {
             throw new ErrorServices("No existe tal reserva.");
         }
-        
+
     }
-    
+
     @Transactional
     public void borrarReserva(Integer id) throws ErrorServices {
         validarInteger(id);
@@ -122,31 +122,40 @@ public class ReservaService {
             throw new ErrorServices("No existe tal reserva.");
         }
     }
-    
-    public void validarReserva(String pasajeroId, String empleadoId, String actividadId, Date fechaActividad, Integer cantPasajeros, String observaciones, String opinionExito) throws ErrorServices {
-        if (pasajeroId == null || pasajeroId.isEmpty() || empleadoId == null || empleadoId.isEmpty() || actividadId == null || actividadId.isEmpty() || fechaActividad == null || cantPasajeros == null || observaciones == null || observaciones.isEmpty() || opinionExito == null || opinionExito.isEmpty()) {
-            throw new ErrorServices("Ningún campo puede ir nulo.");
+
+    public void validarReserva(String pasajeroId, String empleadoId, String actividadId, Date fechaActividad, Integer cantPasajeros) throws ErrorServices {
+        if (pasajeroId == null || pasajeroId.isEmpty()) {
+            throw new ErrorServices("'pasajeroId' no puede ir nulo.");
+        } else if (empleadoId == null || empleadoId.isEmpty()) {
+            throw new ErrorServices("'empleadoId' no puede ir nulo.");
+        } else if (actividadId == null || actividadId.isEmpty()) {
+            throw new ErrorServices("'actividadId' no puede ir nulo.");
+        } else if (cantPasajeros == null) {
+            throw new ErrorServices("'Cantidad de Pasajeros' no puede ir nulo.");
+        } else if (fechaActividad == null) {
+            throw new ErrorServices("'Fecha de Actividad' no puede ir nulo.");
         }
+
     }
-    
+
     public void validarModificacion(Date a, Integer b, Integer c) throws ErrorServices {
         if (a == null || b == null || c == null) {
             throw new ErrorServices("Ningún campo puede ir nulo.");
         }
     }
-    
+
     public void validarModificacion(Date a, Integer c) throws ErrorServices {
         if (a == null || c == null) {
             throw new ErrorServices("Ningún campo puede ir nulo.");
         }
     }
-    
+
     public void validarModificacion(Integer b, Integer c) throws ErrorServices {
         if (b == null || c == null) {
             throw new ErrorServices("Ningún campo puede ir nulo.");
         }
     }
-    
+
     public void validarStrings(String busqueda) throws ErrorServices {
         if (busqueda.isEmpty() || busqueda == null) {
             throw new ErrorServices("Este campo no puede ir nulo.");

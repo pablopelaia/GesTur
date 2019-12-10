@@ -18,7 +18,7 @@ public class EmpleadoService {
     @Transactional
     public void crearEmpleado(String nombre) throws ErrorServices {
         Empleado e = new Empleado();
-        validar(nombre);
+        validarNombre(nombre);
         e.setNombre(nombre);
         er.save(e);
 
@@ -28,24 +28,26 @@ public class EmpleadoService {
         return er.empleadosPorNombre();
     }
 
-    public List<Empleado> listaEmpleado(String nombre) throws ErrorServices {
-        validar(nombre);
+    public List<Empleado> buscarEmpleado(String nombre) throws ErrorServices {
+        validarNombre(nombre);
         return er.buscarEmpleado(nombre);
     }
 
     @Transactional
     public void modificarEmpleado(String id, String nombre) throws ErrorServices {
+        validarID(id);
+        validarNombre(nombre);
         Optional<Empleado> emp = er.findById(id);
         if (emp.isPresent()) {
-            er.modificarNombreEmpleado(nombre);
+            er.modificarNombreEmpleado(id, nombre);
         } else {
-            throw new ErrorServices("No existe tal empleado");
+            throw new ErrorServices("No existe tal empleado.");
         }
     }
 
     @Transactional
     public void borrarEmpleado(String id) throws ErrorServices {
-        validar(id);
+        validarID(id);
         Optional<Empleado> emp = er.findById(id);
         if (emp.isPresent()) {
             Empleado empleado = emp.get();
@@ -55,9 +57,15 @@ public class EmpleadoService {
         }
     }
 
-    public void validar(String nombre) throws ErrorServices {
+    public void validarNombre(String nombre) throws ErrorServices {
         if (nombre.isEmpty() || nombre == null) {
-            throw new ErrorServices("El nombre no puede ir nulo.");
+            throw new ErrorServices("'Nombre' no puede ser nulo.");
+        }
+    }
+
+    public void validarID(String id) throws ErrorServices {
+        if (id.isEmpty() || id == null) {
+            throw new ErrorServices("'ID' no puede ser nulo.");
         }
     }
 
