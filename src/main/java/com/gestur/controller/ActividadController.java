@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,13 +32,13 @@ public class ActividadController {
     }
 
     //formaction="crear"
-    @GetMapping("/crearActividad/crear")
+    @PostMapping("/crearActividad/crear")
     public String crearActividad(@RequestParam String nombre, @RequestParam Double precio, @RequestParam String lugar) throws ErrorServices {
         actServ.crearActividad(nombre, precio, lugar);
         return "redirect:/listaActividad";
     }
 
-    @GetMapping("/listaActividad")
+    @PostMapping("/listaActividad")
     public String listaActividad(@RequestParam(required = false) String nombre, @RequestParam(required = false) String lugar, ModelMap model) throws ErrorServices {
 
         List<Actividad> listaActividad = actServ.listaActividad();
@@ -90,7 +91,7 @@ public class ActividadController {
     }
 
     //formaction="act"
-    @GetMapping("/editarActividad/act")
+    @PostMapping("/editarActividad/act")
     public String editarActividad(@RequestParam String id, @RequestParam String nombre, @RequestParam Double precio, @RequestParam String lugar, ModelMap model) throws ErrorServices {
         actServ.modificarActividad(id, nombre, precio, lugar);
         return "redirect:/listaActividad";
@@ -104,7 +105,7 @@ public class ActividadController {
     }
 
     //formaction="nom"
-    @GetMapping("/editarNombre/nom")
+    @PostMapping("/editarNombre/nom")
     public String editarNombre(@RequestParam String id, @RequestParam String nombre, ModelMap model) throws ErrorServices {
         actServ.modificarNombre(id, nombre);
         return "redirect:/listaActividad";
@@ -118,7 +119,7 @@ public class ActividadController {
     }
 
     //formaction=lugar
-    @GetMapping("/editarLugar/lugar")
+    @PostMapping("/editarLugar/lugar")
     public String editarLugar(@RequestParam String id, @RequestParam String lugar, ModelMap model) throws ErrorServices {
         actServ.modificarLugar(id, lugar);
         return "redirect:/listaActividad";
@@ -132,7 +133,7 @@ public class ActividadController {
     }
 
     //formaction="precio"
-    @GetMapping("/editarPrecio/precio")
+    @PostMapping("/editarPrecio/precio")
     public String editarPrecio(@RequestParam String id, @RequestParam Double precio, ModelMap model) throws ErrorServices {
         actServ.modificarPrecio(id, precio);
         return "redirect:/listaActividad";
@@ -145,7 +146,7 @@ public class ActividadController {
     }
 
     //formaction="eliminar"
-    @GetMapping("/borrarActividad/eliminar")
+    @PostMapping("/borrarActividad/eliminar")
     public String eliminarActividad(@RequestParam String id, ModelMap model) throws ErrorServices {
         actServ.eliminarActividad(id);
         return "redirect:/listaActividad";

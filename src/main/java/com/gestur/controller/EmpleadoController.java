@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,13 +25,13 @@ public class EmpleadoController {
         return "empleado.html";
     }
 
-    @GetMapping("/crearEmpleado")
+    @PostMapping("/crearEmpleado")
     public String crEmp(String nombre) throws ErrorServices {
         empServ.crearEmpleado(nombre);
         return "redirect:/listaEmpleado";
     }
 
-    @GetMapping("/listaEmpleado")
+    @PostMapping("/listaEmpleado")
     public String listaEmpleado(@RequestParam(required = false) String nombre, ModelMap model) throws ErrorServices {
         List<Empleado> listaEmpleado = empServ.listaEmpleado();
         if (nombre != null || !(nombre.isEmpty())) {
@@ -47,7 +48,7 @@ public class EmpleadoController {
     }
 
     //formaction="editar"
-    @GetMapping("/editarEmpleado/editar")
+    @PostMapping("/editarEmpleado/editar")
     public String editarEmpleado(@RequestParam String id, @RequestParam String nombre, ModelMap model) throws ErrorServices {
         empServ.modificarEmpleado(id, nombre);
         return "redirect:/listaEmpleado";
@@ -60,7 +61,7 @@ public class EmpleadoController {
     }
 
     //formaction="eliminar"
-    @GetMapping("/eliminarEmpleado/eliminar")
+    @PostMapping("/eliminarEmpleado/eliminar")
     public String eliminarEmpleado(@RequestParam String id, ModelMap model) throws ErrorServices {
         empServ.borrarEmpleado(id);
         return "redirect:/listaEmpleado";
