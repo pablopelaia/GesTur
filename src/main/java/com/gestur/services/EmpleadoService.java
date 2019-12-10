@@ -41,7 +41,7 @@ public class EmpleadoService {
         if (emp.isPresent()) {
             er.modificarNombreEmpleado(id, nombre);
         } else {
-            throw new ErrorServices("No existe tal empleado");
+            throw new ErrorServices("No existe tal empleado.");
         }
     }
 
@@ -59,13 +59,13 @@ public class EmpleadoService {
 
     public void validarNombre(String nombre) throws ErrorServices {
         if (nombre.isEmpty() || nombre == null) {
-            throw new ErrorServices("El nombre no puede ir nulo.");
+            throw new ErrorServices("'Nombre' no puede ser nulo.");
         }
     }
 
     public void validarID(String id) throws ErrorServices {
         if (id.isEmpty() || id == null) {
-            throw new ErrorServices("El nombre no puede ir nulo.");
+            throw new ErrorServices("'ID' no puede ser nulo.");
         }
     }
 
