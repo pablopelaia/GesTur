@@ -30,7 +30,7 @@ public class ActividadController {
         return "crearActividad.html";
     }
 
-    //formaction="crear" u otro que quiera Cocco
+    //formaction="crear"
     @GetMapping("/crearActividad/crear")
     public String crearActividad(@RequestParam String nombre, @RequestParam Double precio, @RequestParam String lugar) throws ErrorServices {
         actServ.crearActividad(nombre, precio, lugar);
@@ -51,8 +51,10 @@ public class ActividadController {
         return "listaActividad.html";
     }
 
-    //########se me ocurre poner los siguientes 3 en las cabeza de lista para ordenarlas segun indica el metodo, al hacer click#########
+    //########se me ocurre poner los siguientes 3 en las cabeza de lista para ordenarlas segun indica el metodo, al hacer click#############
     //Añadir modelmap especifico para cada uno de los <h></h> (idea)
+    
+    //action="orderByNombre"
     @GetMapping("/listaActividad/orderByNombre")
     public String listaPorNombre(ModelMap model) throws ErrorServices {
         model.addAttribute("titulo", "Lista de Actividades Disponibles");
@@ -60,7 +62,8 @@ public class ActividadController {
         model.put("listaActividad", listaActividad);
         return "listaActividad.html";
     }
-
+    
+    //action="orderByPrecio"
     @GetMapping("/listaActividad/orderByPrecio")
     public String listaPorPrecio(ModelMap model) throws ErrorServices {
         model.addAttribute("titulo", "Lista de Actividades Disponibles");
@@ -68,7 +71,8 @@ public class ActividadController {
         model.put("listaActividad", listaActividad);
         return "listaActividad.html";
     }
-
+    
+    //action="orderByLugar"
     @GetMapping("/listaActividad/orderByLugar")
     public String listaPorLugar(ModelMap model) throws ErrorServices {
         model.addAttribute("titulo", "Lista de Actividades Disponibles");
