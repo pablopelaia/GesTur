@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PasajeroService {
-    private Pasajero pasajero;
     
     @Autowired
     private PasajeroRepository pasajeroRepository;
@@ -46,10 +45,12 @@ public class PasajeroService {
             
             pasajero.setNombre(nombre);
             pasajeroRepository.save(pasajero);
-        }        
+        }else{
+            throw new ErrorServices("no existe pasajero con ese id");
+        }
     }
     
-    
+    @Transactional    
     public void modificarApellido (String id, String apellido) throws ErrorServices{
         
         Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
@@ -60,9 +61,12 @@ public class PasajeroService {
             
             pasajero.setApellido(apellido);
             pasajeroRepository.save(pasajero);
+        }else{
+            throw new ErrorServices("no existe pasajero con ese id");
         }        
     }
     
+    @Transactional 
     public void modificarDocumento (String id, String documento) throws ErrorServices{
         
         Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
@@ -73,9 +77,12 @@ public class PasajeroService {
             
             pasajero.setDocumento(documento);
             pasajeroRepository.save(pasajero);
+        }else{
+            throw new ErrorServices("no existe pasajero con ese id");
         }        
     }
     
+    @Transactional 
     public void modificarNacionalidad (String id, String nacionalidad) throws ErrorServices{
         
         Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
@@ -86,9 +93,12 @@ public class PasajeroService {
             
             pasajero.setNacionalidad(nacionalidad);
             pasajeroRepository.save(pasajero);
+        }else{
+            throw new ErrorServices("no existe pasajero con ese id");
         }        
     }
     
+    @Transactional 
     public void modificarIdioma (String id, Idiomas idioma) throws ErrorServices{
         
         Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
@@ -99,9 +109,12 @@ public class PasajeroService {
             
             pasajero.setIdioma(idioma);
             pasajeroRepository.save(pasajero);
+        }else{
+            throw new ErrorServices("no existe pasajero con ese id");
         }        
     }
     
+    @Transactional 
     public void modificarReserva (String id, Reserva reserva) throws ErrorServices{
         
         Optional<Pasajero> respuesta=pasajeroRepository.findById(id);
@@ -112,9 +125,12 @@ public class PasajeroService {
             
             pasajero.setReserva(reserva);
             pasajeroRepository.save(pasajero);
+        }else{
+            throw new ErrorServices("no existe pasajero con ese id");
         }        
     }         
 
+    @Transactional 
     private void validaDatos(String nombre, String apellido, String documento, String nacionalidad, Idiomas idioma, Reserva reserva) throws ErrorServices{
         
         if (nombre.isEmpty()||nombre.equals(null)){
