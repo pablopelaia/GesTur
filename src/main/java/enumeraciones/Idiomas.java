@@ -1,4 +1,3 @@
-
 package enumeraciones;
 
 public enum Idiomas {
