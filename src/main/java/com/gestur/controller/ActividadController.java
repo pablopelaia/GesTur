@@ -53,7 +53,6 @@ public class ActividadController {
 
     //########se me ocurre poner los siguientes 3 en las cabeza de lista para ordenarlas segun indica el metodo, al hacer click#############
     //Añadir modelmap especifico para cada uno de los <h></h> (idea)
-    
     //action="orderByNombre"
     @GetMapping("/listaActividad/orderByNombre")
     public String listaPorNombre(ModelMap model) throws ErrorServices {
@@ -62,7 +61,7 @@ public class ActividadController {
         model.put("listaActividad", listaActividad);
         return "listaActividad.html";
     }
-    
+
     //action="orderByPrecio"
     @GetMapping("/listaActividad/orderByPrecio")
     public String listaPorPrecio(ModelMap model) throws ErrorServices {
@@ -71,7 +70,7 @@ public class ActividadController {
         model.put("listaActividad", listaActividad);
         return "listaActividad.html";
     }
-    
+
     //action="orderByLugar"
     @GetMapping("/listaActividad/orderByLugar")
     public String listaPorLugar(ModelMap model) throws ErrorServices {
