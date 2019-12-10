@@ -32,7 +32,7 @@ public class ReservaController {
         return "crearReserva.html";
     }
 
-    //formaction="crear" u otro que quiera Cocco
+    //formaction="crear" 
     @PostMapping("/crearReserva/crear")
     public String crearReserva(@RequestParam String pasajeroId, @RequestParam String empleadoId, @RequestParam String actividadId, @RequestParam Date fechaActividad, @RequestParam Integer cantPasajeros, @RequestParam(required = false) String observaciones, @RequestParam(required = false) String opinionExito, ModelMap model, String exito) throws ErrorServices {
         resServ.crearReserva(pasajeroId, empleadoId, actividadId, fechaActividad, cantPasajeros, observaciones, opinionExito);
@@ -58,7 +58,7 @@ public class ReservaController {
         return "modificarReserva.html";
     }
 
-    //formaction="res" u otro que quiera Cocco
+    //formaction="res" 
     @PostMapping("/editarReserva/res")
     public String editarReserva(@RequestParam Date fechaActividad, @RequestParam Integer cantPasajeros, @RequestParam Integer id, String exito, ModelMap model) throws ErrorServices {
         resServ.modificarReserva(fechaActividad, cantPasajeros, id);
@@ -71,7 +71,7 @@ public class ReservaController {
         return "editarFecha.html";
     }
 
-    //formaction="fecha" u otro que quiera Cocco
+    //formaction="fecha" 
     @PostMapping("/editarFecha/fecha")
     public String editarFecha(@RequestParam Date fechaActividad, @RequestParam Integer id, String exito, ModelMap model) throws ErrorServices {
         resServ.modificarReserva(fechaActividad, id);
@@ -84,7 +84,7 @@ public class ReservaController {
         return "editarCantPas.html";
     }
 
-    //formaction="cantPas" u otro que quiera Cocco
+    //formaction="cantPas" 
     @PostMapping("/editarCantPasajeros/cantPas")
     public String editarCantPasajeros(@RequestParam Integer cantPasajeros, @RequestParam Integer id, String exito, ModelMap model) throws ErrorServices {
         resServ.modificarReserva(cantPasajeros, id);
@@ -97,7 +97,7 @@ public class ReservaController {
         return "borrarReserva.html";
     }
 
-    //formaction="borrar" u otro que quiera Cocco
+    //formaction="borrar" 
     @PostMapping("/borrarReserva/borrar")
     public String borrarReserva(@RequestParam Integer id) throws ErrorServices {
         resServ.borrarReserva(id);
