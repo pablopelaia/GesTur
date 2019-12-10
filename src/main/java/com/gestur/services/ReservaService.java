@@ -56,7 +56,7 @@ public class ReservaService {
     }
 
     //Lista completa
-    public List<Reserva> buscarReserva() {
+    public List<Reserva> listaReserva() {
         return resRep.listaReserva();
     }
 
