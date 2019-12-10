@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/layout :: head">
+</head>
+<body>
+
+	<header th:replace="/layout/layout :: header"></header>
+
+	<ul>
+		<!--li></li>  -->
+	</ul>
+	<div class="custom-control custom-switch">
+		<input type="checkbox" class="custom-control-input" id="customSwitch1">
+		<label class="custom-control-label" for="customSwitch1">Toggle
+			this switch element</label>
+	</div>
+	<div class="custom-control custom-switch">
+		<input type="checkbox" class="custom-control-input" disabled
+			id="customSwitch2"> <label class="custom-control-label"
+			for="customSwitch2">Disabled switch element</label>
+	</div>
+	<footer th:replace="/layout/layout :: footer"></footer>
+</body>
+</html>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,14 +32,14 @@ public class ReservaController {
         return "crearReserva.html";
     }
 
-    //formaction="crear" u otro que quiera Cocco
-    @GetMapping("/crearReserva/crear")
+    //formaction="crear" 
+    @PostMapping("/crearReserva/crear")
     public String crearReserva(@RequestParam String pasajeroId, @RequestParam String empleadoId, @RequestParam String actividadId, @RequestParam Date fechaActividad, @RequestParam Integer cantPasajeros, @RequestParam(required = false) String observaciones, @RequestParam(required = false) String opinionExito, ModelMap model, String exito) throws ErrorServices {
         resServ.crearReserva(pasajeroId, empleadoId, actividadId, fechaActividad, cantPasajeros, observaciones, opinionExito);
         return "redirect:/listaReserva";
     }
 
-    @GetMapping("/listaReserva")
+    @PostMapping("/listaReserva")
     public String listaReserva(@RequestParam(required = false) String nombre, ModelMap model) throws ErrorServices {
         model.addAttribute("titulo", "Listado de Reservas");
         List<Reserva> listaReserva;
@@ -57,8 +58,8 @@ public class ReservaController {
         return "modificarReserva.html";
     }
 
-    //formaction="res" u otro que quiera Cocco
-    @GetMapping("/editarReserva/res")
+    //formaction="res" 
+    @PostMapping("/editarReserva/res")
     public String editarReserva(@RequestParam Date fechaActividad, @RequestParam Integer cantPasajeros, @RequestParam Integer id, String exito, ModelMap model) throws ErrorServices {
         resServ.modificarReserva(fechaActividad, cantPasajeros, id);
         return "redirect:/listaReserva";
@@ -70,8 +71,8 @@ public class ReservaController {
         return "editarFecha.html";
     }
 
-    //formaction="fecha" u otro que quiera Cocco
-    @GetMapping("/editarFecha/fecha")
+    //formaction="fecha" 
+    @PostMapping("/editarFecha/fecha")
     public String editarFecha(@RequestParam Date fechaActividad, @RequestParam Integer id, String exito, ModelMap model) throws ErrorServices {
         resServ.modificarReserva(fechaActividad, id);
         return "redirect:/listaReserva";
@@ -83,8 +84,8 @@ public class ReservaController {
         return "editarCantPas.html";
     }
 
-    //formaction="cantPas" u otro que quiera Cocco
-    @GetMapping("/editarCantPasajeros/cantPas")
+    //formaction="cantPas" 
+    @PostMapping("/editarCantPasajeros/cantPas")
     public String editarCantPasajeros(@RequestParam Integer cantPasajeros, @RequestParam Integer id, String exito, ModelMap model) throws ErrorServices {
         resServ.modificarReserva(cantPasajeros, id);
         return "redirect:/listaReserva";
@@ -96,8 +97,8 @@ public class ReservaController {
         return "borrarReserva.html";
     }
 
-    //formaction="borrar" u otro que quiera Cocco
-    @GetMapping("/borrarReserva/borrar")
+    //formaction="borrar" 
+    @PostMapping("/borrarReserva/borrar")
     public String borrarReserva(@RequestParam Integer id) throws ErrorServices {
         resServ.borrarReserva(id);
         return "redirect:/listaReserva";
