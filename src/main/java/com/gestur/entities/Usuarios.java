@@ -7,73 +7,73 @@ import javax.persistence.Id;
 
 @Entity
 public class Usuarios {
-    
-    @Id
-    private int legajo;
-    private String nombre;
-    private String apellido;
-    private String mail;
-    private Date fechaingreso;
-    private Permisos permiso;
-    private String contraseña;
 
-    public Usuarios() {
-    }
+	@Id
+	private Integer legajo;
+	private String nombre;
+	private String apellido;
+	private String mail;
+	private Date fechaingreso;
+	private Permisos permiso;
+	private String contraseña;
 
-    public int getLegajo() {
-        return legajo;
-    }
+	public Usuarios() {
+	}
 
-    public void setLegajo(int legajo) {
-        this.legajo = legajo;
-    }
+	public Integer getLegajo() {
+		return legajo;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public void setLegajo(Integer legajo) {
+		this.legajo = legajo;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public String getApellido() {
-        return apellido;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+	public String getApellido() {
+		return apellido;
+	}
 
-    public String getMail() {
-        return mail;
-    }
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+	public String getMail() {
+		return mail;
+	}
 
-    public Date getFechaingreso() {
-        return fechaingreso;
-    }
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 
-    public void setFechaingreso(Date fechaingreso) {
-        this.fechaingreso = fechaingreso;
-    }
+	public Date getFechaingreso() {
+		return fechaingreso;
+	}
 
-    public Permisos getPermiso() {
-        return permiso;
-    }
+	public void setFechaingreso(Date fechaingreso) {
+		this.fechaingreso = fechaingreso;
+	}
 
-    public void setPermiso(Permisos permiso) {
-        this.permiso = permiso;
-    }
+	public Permisos getPermiso() {
+		return permiso;
+	}
 
-    public String getContraseña() {
-        return contraseña;
-    }
+	public void setPermiso(Permisos permiso) {
+		this.permiso = permiso;
+	}
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
-    
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+
 }
