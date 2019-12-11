@@ -135,18 +135,34 @@ public class PasajeroService {
         
         if (nombre.isEmpty()||nombre.equals(null)){
             throw new ErrorServices("El nombre no puede estar vacío");
+        }else{
+            if (!(nombre instanceof String)){
+                throw new ErrorServices("El nombre debe ser un Sring");
+            }
         }
         
         if (apellido.isEmpty()||apellido.equals(null)){
             throw new ErrorServices("El apellido no puede estar vacío");
+        }else{
+            if (!(apellido instanceof String)){
+                throw new ErrorServices("El apellido debe ser un Sring");
+            }
         }
         
         if (documento.isEmpty()||documento.equals(null)){
             throw new ErrorServices("El documento no puede estar vacío");
+        }else{
+            if (!(documento instanceof String)){
+                throw new ErrorServices("El documento debe ser un Sring");
+            }
         }
         
         if (nacionalidad.isEmpty()||nacionalidad.equals(null)){
             throw new ErrorServices("La nacionalidad no puede estar vacío");
+        }else{
+            if (!(nacionalidad instanceof String)){
+                throw new ErrorServices("La nacionalidad debe ser un Sring");
+            }
         }
         
         if (idioma.equals(null)){
