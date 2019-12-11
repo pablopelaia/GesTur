@@ -17,13 +17,14 @@ public class ActividadService {
 
     @Transactional
     public void crearActividad(String nombre, Double precio, String lugar) throws ErrorServices {
-        validarCreacion(nombre, precio, lugar);
+        validarNombre(nombre);
+        validarPrecio(precio);
+        validarLugar(lugar);
         Actividad a = new Actividad();
         a.setNombre(nombre);
         a.setPrecio(precio);
         a.setLugar(lugar);
         adRep.save(a);
-
     }
 
     public List<Actividad> listaActividad() {
@@ -54,12 +55,15 @@ public class ActividadService {
 
     @Transactional
     public void modificarActividad(String id, String nombre, Double precio, String lugar) throws ErrorServices {
-        validarModificacion(id, nombre, precio, lugar);
+        validarID(id);
+        validarNombre(nombre);
+        validarPrecio(precio);
+        validarLugar(lugar);
         Optional<Actividad> act = adRep.findById(id);
         if (act.isPresent()) {
             adRep.modificarTodo(nombre, lugar, precio, id);
         } else {
-            throw new ErrorServices("No existe tal actividad");
+            throw new ErrorServices("No existe tal actividad.");
         }
     }
 
@@ -71,18 +75,18 @@ public class ActividadService {
         if (act.isPresent()) {
             adRep.modificarNombre(nombre, id);
         } else {
-            throw new ErrorServices("No existe tal actividad");
+            throw new ErrorServices("No existe tal actividad.");
         }
     }
 
     @Transactional
     public void modificarPrecio(String id, Double precio) throws ErrorServices {
-        validarDouble(precio);
+        validarPrecio(precio);
         Optional<Actividad> act = adRep.findById(id);
         if (act.isPresent()) {
             adRep.modificarPrecio(precio, id);
         } else {
-            throw new ErrorServices("No existe tal actividad");
+            throw new ErrorServices("No existe tal actividad.");
         }
     }
 
@@ -94,7 +98,7 @@ public class ActividadService {
         if (act.isPresent()) {
             adRep.modificarLugar(lugar, id);
         } else {
-            throw new ErrorServices("No existe tal actividad");
+            throw new ErrorServices("No existe tal actividad.");
         }
     }
 
@@ -106,59 +110,43 @@ public class ActividadService {
             Actividad actividad = act.get();
             adRep.delete(actividad);
         } else {
-            throw new ErrorServices("No existe tal actividad");
-        }
-    }
-
-    public void validarCreacion(String nombre, Double precio, String lugar) throws ErrorServices {
-
-        if (nombre.isEmpty() || nombre == null) {
-            throw new ErrorServices("El nombre no puede ir nulo.");
-        }
-        if (precio == null) {
-            throw new ErrorServices("El precio no puede ir nulo.");
-        }
-        if (lugar.isEmpty() || lugar == null) {
-            throw new ErrorServices("El lugar no puede ir nulo.");
-        }
-    }
-
-    public void validarModificacion(String id, String nombre, Double precio, String lugar) throws ErrorServices {
-        if (id.isEmpty() || id == null) {
-            throw new ErrorServices("'ID' no puede ir nulo.");
-        }
-        if (nombre.isEmpty() || nombre == null) {
-            throw new ErrorServices("'Nombre' no puede ir nulo.");
-        }
-        if (precio == null) {
-            throw new ErrorServices("'Precio' no puede ir nulo.");
-        }
-        if (lugar.isEmpty() || lugar == null) {
-            throw new ErrorServices("'Lugar' no puede ir nulo.");
+            throw new ErrorServices("No existe tal actividad.");
         }
     }
 
     public void validarNombre(String a) throws ErrorServices {
-        if (a.isEmpty() || a == null) {
-            throw new ErrorServices("'Nombre' no puede ir nulo.");
+        if (a == null || a.isEmpty()) {
+            throw new ErrorServices("'Nombre' no puede ser nulo.");
+        }
+        if (!(a instanceof String)) {
+            throw new ErrorServices("'Nombre'  debe ser una cadena de texto");
         }
     }
 
     public void validarID(String a) throws ErrorServices {
-        if (a.isEmpty() || a == null) {
-            throw new ErrorServices("'ID' no puede ir nulo.");
+        if (a == null || a.isEmpty()) {
+            throw new ErrorServices("'ID' no puede ser nulo.");
+        }
+        if (!(a instanceof String)) {
+            throw new ErrorServices("'ID' debe ser una cadena de texto.");
         }
     }
 
     public void validarLugar(String a) throws ErrorServices {
-        if (a.isEmpty() || a == null) {
-            throw new ErrorServices("'Lugar' no puede ir nulo.");
+        if (a == null || a.isEmpty()) {
+            throw new ErrorServices("'Lugar' no puede ser nulo.");
+        }
+        if (!(a instanceof String)) {
+            throw new ErrorServices("'Lugar' debe ser una cadena de texto.");
         }
     }
 
-    public void validarDouble(Double a) throws ErrorServices {
+    public void validarPrecio(Double a) throws ErrorServices {
         if (a == null) {
-            throw new ErrorServices("'Precio' no puede ir nulo.");
+            throw new ErrorServices("'Precio' no puede ser nulo.");
+        }
+        if (!(a instanceof Double)) {
+            throw new ErrorServices("'Precio' debe ser un número.");
         }
     }
 

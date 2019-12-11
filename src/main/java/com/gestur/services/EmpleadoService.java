@@ -58,14 +58,20 @@ public class EmpleadoService {
     }
 
     public void validarNombre(String nombre) throws ErrorServices {
-        if (nombre.isEmpty() || nombre == null) {
+        if (nombre == null || nombre.isEmpty()) {
             throw new ErrorServices("'Nombre' no puede ser nulo.");
+        }
+        if (!(nombre instanceof String)) {
+            throw new ErrorServices("'ID' debe ser una cadena de texto.");
         }
     }
 
     public void validarID(String id) throws ErrorServices {
-        if (id.isEmpty() || id == null) {
+        if (id == null || id.isEmpty()) {
             throw new ErrorServices("'ID' no puede ser nulo.");
+        }
+        if (!(id instanceof String)) {
+            throw new ErrorServices("'ID' debe ser una cadena de texto.");
         }
     }
 

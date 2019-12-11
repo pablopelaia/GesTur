@@ -61,9 +61,9 @@ public class ReservaService {
     }
 
     //Reserva por NOMBRE de ACTIVIDAD
-    public List<Reserva> buscarReservaActividad(String actividad) throws ErrorServices {
-        validarNombre(actividad);
-        return resRep.reservaPorActividad(actividad);
+    public List<Reserva> buscarReservaActividad(String nombre) throws ErrorServices {
+        validarNombre(nombre);
+        return resRep.reservaPorActividad(nombre);
     }
 
     //Reserva por LUGAR de ACTIVIDAD
@@ -129,25 +129,34 @@ public class ReservaService {
 
     public void validarReserva(String pasajeroId, String empleadoId, String actividadId, Date fechaActividad, Integer cantPasajeros) throws ErrorServices {
         if (pasajeroId == null || pasajeroId.isEmpty()) {
-            throw new ErrorServices("'pasajeroId' no puede ir nulo.");
-        } else if (empleadoId == null || empleadoId.isEmpty()) {
-            throw new ErrorServices("'empleadoId' no puede ir nulo.");
-        } else if (actividadId == null || actividadId.isEmpty()) {
-            throw new ErrorServices("'actividadId' no puede ir nulo.");
-        } else if (cantPasajeros == null) {
-            throw new ErrorServices("'Cantidad de Pasajeros' no puede ir nulo.");
-        } else if (fechaActividad == null) {
-            throw new ErrorServices("'Fecha de Actividad' no puede ir nulo.");
+            throw new ErrorServices("'pasajeroId' no puede ser nulo.");
         }
+        if (empleadoId == null || empleadoId.isEmpty()) {
+            throw new ErrorServices("'empleadoId' no puede ser nulo.");
+        }
+        if (actividadId == null || actividadId.isEmpty()) {
+            throw new ErrorServices("'actividadId' no puede ser nulo.");
+        }
+        if (cantPasajeros == null) {
+            throw new ErrorServices("'Cantidad de Pasajeros' no puede ser nulo.");
+        }
+        if (fechaActividad == null) {
+            throw new ErrorServices("'Fecha de Actividad' no puede ser nulo.");
+        }
+
         if (!(pasajeroId instanceof String)) {
             throw new ErrorServices("'pasajeroId' debe ser una cadena de texto.");
-        } else if (!(empleadoId instanceof String)) {
+        }
+        if (!(empleadoId instanceof String)) {
             throw new ErrorServices("'empleadoId' debe ser una cadena de texto.");
-        } else if (!(actividadId instanceof String)) {
+        }
+        if (!(actividadId instanceof String)) {
             throw new ErrorServices("'actividadId' debe ser una cadena de texto.");
-        } else if (!(fechaActividad instanceof Date)) {
+        }
+        if (!(fechaActividad instanceof Date)) {
             throw new ErrorServices("'Fecha de Actividad' debe ser una Fecha.");
-        } else if (!(cantPasajeros instanceof Integer)) {
+        }
+        if (!(cantPasajeros instanceof Integer)) {
             throw new ErrorServices("'Cantidad de Pasajeros' debe ser un número.");
         }
 
@@ -155,33 +164,33 @@ public class ReservaService {
 
     public void validarId(Integer a) throws ErrorServices {
         if (a == null) {
-            throw new ErrorServices("'ID' no puede ir nulo.");
+            throw new ErrorServices("'ID' no puede ser nulo.");
         }
         if (!(a instanceof Integer)) {
-            throw new ErrorServices("'ID' debe ser un número");
+            throw new ErrorServices("'ID' debe ser un número.");
         }
     }
 
     public void validarCantidad(Integer a) throws ErrorServices {
         if (a == null) {
-            throw new ErrorServices("'Cantidad de Pasajeros' no puede ir nulo.");
+            throw new ErrorServices("'Cantidad de Pasajeros' no puede ser nulo.");
         }
         if (!(a instanceof Integer)) {
-            throw new ErrorServices("'Cantidad de Pasajeros' debe ser un número");
+            throw new ErrorServices("'Cantidad de Pasajeros' debe ser un número.");
         }
     }
 
     public void validarFecha(Date fechaActividad) throws ErrorServices {
         if (fechaActividad == null) {
-            throw new ErrorServices("'Fecha de Actividad' no puede ir nulo.");
+            throw new ErrorServices("'Fecha de Actividad' no puede ser nulo.");
         }
         if (!(fechaActividad instanceof Date)) {
-            throw new ErrorServices("'Fecha de Actividad' debe ser una fecha");
+            throw new ErrorServices("'Fecha de Actividad' debe ser una fecha.");
         }
     }
 
     public void validarLugar(String a) throws ErrorServices {
-        if (a == null) {
+        if (a == null || a.isEmpty()) {
             throw new ErrorServices("'Lugar' no puede ser nulo.");
         }
         if (!(a instanceof String)) {
@@ -190,7 +199,7 @@ public class ReservaService {
     }
 
     public void validarNombre(String a) throws ErrorServices {
-        if (a == null) {
+        if (a == null || a.isEmpty()) {
             throw new ErrorServices("'Nombre' no puede ser nulo.");
         }
         if (!(a instanceof String)) {
