@@ -41,7 +41,7 @@ public class EmpleadoService {
         if (emp.isPresent()) {
             er.modificarNombreEmpleado(id, nombre);
         } else {
-            throw new ErrorServices("No existe tal empleado.");
+            throw new ErrorServices("No existe tal Empleado.");
         }
     }
 
@@ -53,7 +53,7 @@ public class EmpleadoService {
             Empleado empleado = emp.get();
             er.delete(empleado);
         } else {
-            throw new ErrorServices("No existe tal empleado.");
+            throw new ErrorServices("No existe tal Empleado.");
         }
     }
 
@@ -62,7 +62,7 @@ public class EmpleadoService {
             throw new ErrorServices("'Nombre' no puede ser nulo.");
         }
         if (!(nombre instanceof String)) {
-            throw new ErrorServices("'ID' debe ser una cadena de texto.");
+            throw new ErrorServices("'ID' debe ser una Cadena de Texto.");
         }
     }
 
@@ -71,7 +71,7 @@ public class EmpleadoService {
             throw new ErrorServices("'ID' no puede ser nulo.");
         }
         if (!(id instanceof String)) {
-            throw new ErrorServices("'ID' debe ser una cadena de texto.");
+            throw new ErrorServices("'ID' debe ser una Cadena de Texto.");
         }
     }
 

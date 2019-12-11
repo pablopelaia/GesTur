@@ -50,7 +50,7 @@ public class ReservaService {
             resRep.save(reserva);
 
         } else {
-            throw new ErrorServices("Verifique la existencia del pasajero, empleado o actividad.");
+            throw new ErrorServices("Verifique la existencia del Pasajero, Empleado o Actividad.");
         }
 
     }
@@ -82,7 +82,7 @@ public class ReservaService {
         if (res.isPresent()) {
             resRep.modificarReserva(fechaActividad, cantPasajeros, id);
         } else {
-            throw new ErrorServices("No existe tal reserva.");
+            throw new ErrorServices("No existe tal Reserva.");
         }
 
     }
@@ -96,7 +96,7 @@ public class ReservaService {
         if (res.isPresent()) {
             resRep.modificarFecha(fechaActividad, id);
         } else {
-            throw new ErrorServices("No existe tal reserva.");
+            throw new ErrorServices("No existe tal Reserva.");
         }
 
     }
@@ -110,7 +110,7 @@ public class ReservaService {
         if (res.isPresent()) {
             resRep.modificarPasajeros(cantPasajeros, id);
         } else {
-            throw new ErrorServices("No existe tal reserva.");
+            throw new ErrorServices("No existe tal Reserva.");
         }
 
     }
@@ -123,7 +123,7 @@ public class ReservaService {
             Reserva reserva = res.get();
             resRep.delete(reserva);
         } else {
-            throw new ErrorServices("No existe tal reserva.");
+            throw new ErrorServices("No existe tal Reserva.");
         }
     }
 
@@ -145,19 +145,19 @@ public class ReservaService {
         }
 
         if (!(pasajeroId instanceof String)) {
-            throw new ErrorServices("'pasajeroId' debe ser una cadena de texto.");
+            throw new ErrorServices("'pasajeroId' debe ser una Cadena de Texto.");
         }
         if (!(empleadoId instanceof String)) {
-            throw new ErrorServices("'empleadoId' debe ser una cadena de texto.");
+            throw new ErrorServices("'empleadoId' debe ser una Cadena de Texto.");
         }
         if (!(actividadId instanceof String)) {
-            throw new ErrorServices("'actividadId' debe ser una cadena de texto.");
+            throw new ErrorServices("'actividadId' debe ser una Cadena de Texto.");
         }
         if (!(fechaActividad instanceof Date)) {
             throw new ErrorServices("'Fecha de Actividad' debe ser una Fecha.");
         }
         if (!(cantPasajeros instanceof Integer)) {
-            throw new ErrorServices("'Cantidad de Pasajeros' debe ser un número.");
+            throw new ErrorServices("'Cantidad de Pasajeros' debe ser un Número.");
         }
 
     }
@@ -167,7 +167,7 @@ public class ReservaService {
             throw new ErrorServices("'ID' no puede ser nulo.");
         }
         if (!(a instanceof Integer)) {
-            throw new ErrorServices("'ID' debe ser un número.");
+            throw new ErrorServices("'ID' debe ser un Número.");
         }
     }
 
@@ -176,7 +176,7 @@ public class ReservaService {
             throw new ErrorServices("'Cantidad de Pasajeros' no puede ser nulo.");
         }
         if (!(a instanceof Integer)) {
-            throw new ErrorServices("'Cantidad de Pasajeros' debe ser un número.");
+            throw new ErrorServices("'Cantidad de Pasajeros' debe ser un Número.");
         }
     }
 
@@ -185,7 +185,7 @@ public class ReservaService {
             throw new ErrorServices("'Fecha de Actividad' no puede ser nulo.");
         }
         if (!(fechaActividad instanceof Date)) {
-            throw new ErrorServices("'Fecha de Actividad' debe ser una fecha.");
+            throw new ErrorServices("'Fecha de Actividad' debe ser una Fecha.");
         }
     }
 
@@ -194,7 +194,7 @@ public class ReservaService {
             throw new ErrorServices("'Lugar' no puede ser nulo.");
         }
         if (!(a instanceof String)) {
-            throw new ErrorServices("'Lugar' debe ser una cadena de texto.");
+            throw new ErrorServices("'Lugar' debe ser una Cadena de Texto.");
         }
     }
 
@@ -203,7 +203,7 @@ public class ReservaService {
             throw new ErrorServices("'Nombre' no puede ser nulo.");
         }
         if (!(a instanceof String)) {
-            throw new ErrorServices("'Nombre' debe ser una cadena de texto.");
+            throw new ErrorServices("'Nombre' debe ser una Cadena de Texto.");
         }
     }
 }

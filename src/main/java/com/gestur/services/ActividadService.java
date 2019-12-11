@@ -63,7 +63,7 @@ public class ActividadService {
         if (act.isPresent()) {
             adRep.modificarTodo(nombre, lugar, precio, id);
         } else {
-            throw new ErrorServices("No existe tal actividad.");
+            throw new ErrorServices("No existe tal Actividad.");
         }
     }
 
@@ -75,7 +75,7 @@ public class ActividadService {
         if (act.isPresent()) {
             adRep.modificarNombre(nombre, id);
         } else {
-            throw new ErrorServices("No existe tal actividad.");
+            throw new ErrorServices("No existe tal Actividad.");
         }
     }
 
@@ -86,7 +86,7 @@ public class ActividadService {
         if (act.isPresent()) {
             adRep.modificarPrecio(precio, id);
         } else {
-            throw new ErrorServices("No existe tal actividad.");
+            throw new ErrorServices("No existe tal Actividad.");
         }
     }
 
@@ -98,7 +98,7 @@ public class ActividadService {
         if (act.isPresent()) {
             adRep.modificarLugar(lugar, id);
         } else {
-            throw new ErrorServices("No existe tal actividad.");
+            throw new ErrorServices("No existe tal Actividad.");
         }
     }
 
@@ -110,7 +110,7 @@ public class ActividadService {
             Actividad actividad = act.get();
             adRep.delete(actividad);
         } else {
-            throw new ErrorServices("No existe tal actividad.");
+            throw new ErrorServices("No existe tal Actividad.");
         }
     }
 
@@ -119,7 +119,7 @@ public class ActividadService {
             throw new ErrorServices("'Nombre' no puede ser nulo.");
         }
         if (!(a instanceof String)) {
-            throw new ErrorServices("'Nombre'  debe ser una cadena de texto");
+            throw new ErrorServices("'Nombre'  debe ser una Cadena de Texto");
         }
     }
 
@@ -128,7 +128,7 @@ public class ActividadService {
             throw new ErrorServices("'ID' no puede ser nulo.");
         }
         if (!(a instanceof String)) {
-            throw new ErrorServices("'ID' debe ser una cadena de texto.");
+            throw new ErrorServices("'ID' debe ser una Cadena de Texto.");
         }
     }
 
@@ -137,7 +137,7 @@ public class ActividadService {
             throw new ErrorServices("'Lugar' no puede ser nulo.");
         }
         if (!(a instanceof String)) {
-            throw new ErrorServices("'Lugar' debe ser una cadena de texto.");
+            throw new ErrorServices("'Lugar' debe ser una Cadena de Texto.");
         }
     }
 
@@ -146,7 +146,7 @@ public class ActividadService {
             throw new ErrorServices("'Precio' no puede ser nulo.");
         }
         if (!(a instanceof Double)) {
-            throw new ErrorServices("'Precio' debe ser un número.");
+            throw new ErrorServices("'Precio' debe ser un Número.");
         }
     }
 
