@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <title>GesTur</title>
@@ -192,7 +192,7 @@
 
 					<div class="col-lg-4 box">
 						<h4 class="title">
-							<a href=""><i class="ion-ios-bookmarks-outline"></i>CARGAR
+							<a th:href="@{/reserva}"><i class="ion-ios-bookmarks-outline"></i>CARGAR
 								RESERVA</a>
 						</h4>
 						<p class="description">Ingrese los datos</p>

@@ -21,8 +21,6 @@ public class Pasajero {
     private String nacionalidad;
     private Idiomas idioma;
     
-    @ManyToOne
-    private Reserva reserva;
 
     public Pasajero() {
     }
@@ -73,14 +71,6 @@ public class Pasajero {
 
     public void setIdioma(Idiomas idioma) {
         this.idioma = idioma;
-    }
-
-    public Reserva getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
     }
    
 }
