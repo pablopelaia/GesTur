@@ -48,7 +48,7 @@ public class EmpleadoController {
     }
 
     //formaction="editar"
-    @PostMapping("/editarEmpleado/editar")
+    @PostMapping("/editarEmpleado")
     public String editarEmpleado(@RequestParam String id, @RequestParam String nombre, ModelMap model) throws ErrorServices {
         empServ.modificarEmpleado(id, nombre);
         return "redirect:/listaEmpleado";
@@ -61,7 +61,7 @@ public class EmpleadoController {
     }
 
     //formaction="eliminar"
-    @PostMapping("/eliminarEmpleado/eliminar")
+    @PostMapping("/eliminarEmpleado")
     public String eliminarEmpleado(@RequestParam String id, ModelMap model) throws ErrorServices {
         empServ.borrarEmpleado(id);
         return "redirect:/listaEmpleado";

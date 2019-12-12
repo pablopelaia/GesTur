@@ -32,7 +32,7 @@ public class ActividadController {
     }
 
     //formaction="crear"
-    @PostMapping("/crearActividad/crear")
+    @PostMapping("/crearActividad")
     public String crearActividad(@RequestParam String nombre, @RequestParam Double precio, @RequestParam String lugar) throws ErrorServices {
         actServ.crearActividad(nombre, precio, lugar);
         return "redirect:/listaActividad";
@@ -91,7 +91,7 @@ public class ActividadController {
     }
 
     //formaction="act"
-    @PostMapping("/editarActividad/act")
+    @PostMapping("/editarActividad")
     public String editarActividad(@RequestParam String id, @RequestParam String nombre, @RequestParam Double precio, @RequestParam String lugar, ModelMap model) throws ErrorServices {
         actServ.modificarActividad(id, nombre, precio, lugar);
         return "redirect:/listaActividad";
@@ -105,7 +105,7 @@ public class ActividadController {
     }
 
     //formaction="nom"
-    @PostMapping("/editarNombre/nom")
+    @PostMapping("/editarNombre")
     public String editarNombre(@RequestParam String id, @RequestParam String nombre, ModelMap model) throws ErrorServices {
         actServ.modificarNombre(id, nombre);
         return "redirect:/listaActividad";
@@ -119,7 +119,7 @@ public class ActividadController {
     }
 
     //formaction=lugar
-    @PostMapping("/editarLugar/lugar")
+    @PostMapping("/editarLugar")
     public String editarLugar(@RequestParam String id, @RequestParam String lugar, ModelMap model) throws ErrorServices {
         actServ.modificarLugar(id, lugar);
         return "redirect:/listaActividad";
@@ -133,7 +133,7 @@ public class ActividadController {
     }
 
     //formaction="precio"
-    @PostMapping("/editarPrecio/precio")
+    @PostMapping("/editarPrecio")
     public String editarPrecio(@RequestParam String id, @RequestParam Double precio, ModelMap model) throws ErrorServices {
         actServ.modificarPrecio(id, precio);
         return "redirect:/listaActividad";
@@ -146,7 +146,7 @@ public class ActividadController {
     }
 
     //formaction="eliminar"
-    @PostMapping("/borrarActividad/eliminar")
+    @PostMapping("/borrarActividad")
     public String eliminarActividad(@RequestParam String id, ModelMap model) throws ErrorServices {
         actServ.eliminarActividad(id);
         return "redirect:/listaActividad";
