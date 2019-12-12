@@ -40,6 +40,7 @@ public class ReservaService {
             Actividad actividad = act.get();
             Pasajero pasajero = pas.get();
             reserva.setFechaCarga(new Date());
+            reserva.setFechaCarga(new Date());
             reserva.setFechaActividad(fechaActividad);
             reserva.setCantPasajeros(cantPasajeros);
             reserva.setObservaciones(observaciones);
