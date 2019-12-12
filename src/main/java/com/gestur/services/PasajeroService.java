@@ -24,13 +24,14 @@ public class PasajeroService {
 
 		Pasajero pasajero = new Pasajero();
 
+		pasajero.setNombre(nombre);
 		pasajero.setApellido(apellido);
 		pasajero.setDocumento(documento);
 		pasajero.setIdioma(idioma);
 		pasajero.setNacionalidad(nacionalidad);
 
 		pasajeroRepository.save(pasajero);
-		
+
 		return pasajero;
 
 	}

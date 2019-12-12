@@ -1,8 +1,13 @@
 package com.gestur.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -13,6 +18,9 @@ public class Empleado {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
+    
+    @OneToMany(mappedBy = "empleado", fetch = FetchType.LAZY)
+	private List<Reserva> reserva;
 
 
     public String getId() {

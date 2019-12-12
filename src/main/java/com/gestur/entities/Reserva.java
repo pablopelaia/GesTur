@@ -2,6 +2,7 @@ package com.gestur.entities;
 
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,101 +13,101 @@ import javax.persistence.TemporalType;
 @Entity
 public class Reserva {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaCarga;
+	@Temporal(TemporalType.DATE)
+	private Date fechaCarga;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaActividad;
+	@Temporal(TemporalType.DATE)
+	private Date fechaActividad;
 
-    private Integer cantPasajeros;
+	private Integer cantPasajeros;
 
-    private String observaciones;
+	private String observaciones;
 
-    private String opinionExito;
+	private String opinionExito;
 
-    @ManyToOne
-    private Actividad actividad;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Actividad actividad;
 
-    @ManyToOne
-    private Empleado empleado;
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Empleado empleado;
 
-    @ManyToOne
-    private Pasajero pasajero;
+	@ManyToOne
+	private Pasajero pasajero;
 
-    public Pasajero getPasajero() {
-        return pasajero;
-    }
+	public Pasajero getPasajero() {
+		return pasajero;
+	}
 
-    public void setPasajero(Pasajero pasajero) {
-        this.pasajero = pasajero;
-    }
+	public void setPasajero(Pasajero pasajero) {
+		this.pasajero = pasajero;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Date getFechaCarga() {
-        return fechaCarga;
-    }
+	public Date getFechaCarga() {
+		return fechaCarga;
+	}
 
-    public void setFechaCarga(Date fechaCarga) {
-        this.fechaCarga = fechaCarga;
-    }
+	public void setFechaCarga(Date fechaCarga) {
+		this.fechaCarga = fechaCarga;
+	}
 
-    public Date getFechaActividad() {
-        return fechaActividad;
-    }
+	public Date getFechaActividad() {
+		return fechaActividad;
+	}
 
-    public void setFechaActividad(Date fechaActividad) {
-        this.fechaActividad = fechaActividad;
-    }
+	public void setFechaActividad(Date fechaActividad) {
+		this.fechaActividad = fechaActividad;
+	}
 
-    public Integer getCantPasajeros() {
-        return cantPasajeros;
-    }
+	public Integer getCantPasajeros() {
+		return cantPasajeros;
+	}
 
-    public void setCantPasajeros(Integer cantPasajeros) {
-        this.cantPasajeros = cantPasajeros;
-    }
+	public void setCantPasajeros(Integer cantPasajeros) {
+		this.cantPasajeros = cantPasajeros;
+	}
 
-    public String getObservaciones() {
-        return observaciones;
-    }
+	public String getObservaciones() {
+		return observaciones;
+	}
 
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
 
-    public String getOpinionExito() {
-        return opinionExito;
-    }
+	public String getOpinionExito() {
+		return opinionExito;
+	}
 
-    public void setOpinionExito(String opinionExito) {
-        this.opinionExito = opinionExito;
-    }
+	public void setOpinionExito(String opinionExito) {
+		this.opinionExito = opinionExito;
+	}
 
-    public Actividad getActividad() {
-        return actividad;
-    }
+	public Actividad getActividad() {
+		return actividad;
+	}
 
-    public void setActividad(Actividad actividad) {
-        this.actividad = actividad;
-    }
+	public void setActividad(Actividad actividad) {
+		this.actividad = actividad;
+	}
 
-    public Empleado getEmpleado() {
-        return empleado;
-    }
+	public Empleado getEmpleado() {
+		return empleado;
+	}
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
 
 }
