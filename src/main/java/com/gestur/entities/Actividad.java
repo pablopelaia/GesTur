@@ -57,4 +57,16 @@ public class Actividad {
 		this.lugar = lugar;
 	}
 
+	public List<Reserva> getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(List<Reserva> reserva) {
+		this.reserva = reserva;
+	}
+
+	public void addReserva(Reserva reserva) {
+		this.reserva.add(reserva);
+	}
+
 }
