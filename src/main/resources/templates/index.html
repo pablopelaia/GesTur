@@ -63,16 +63,11 @@
 					<li><a href="#team">Equipo</a></li>
 
 					<li><a href="#contact">Contacto</a></li>
-<<<<<<< HEAD
-					<li><a href="">Iniciar Sesion</a></li>
-
-=======
 
 					<li th:if="${empleado == null}"><a th:href="@{/login}">Iniciar
 							sesión</a></li>
 					<li th:if="${empleado != null}"><span
 						th:text="${empleado.nombre}"></span></li>
->>>>>>> backend
 				</ul>
 			</nav>
 			<!-- #nav-menu-container -->
@@ -225,13 +220,8 @@
 
 					<div class="col-lg-4 box">
 						<h4 class="title">
-<<<<<<< HEAD
-							<a href=""><i class="ion-ios-trash"></i>ELIMINAR/MODIFICAR
-								RESERVA</a>
-=======
 							<a th:href="@{/reserva/listaReserva}"><i
 								class="ion-ios-trash"></i>ELIMINAR/MODIFICAR RESERVA</a>
->>>>>>> backend
 						</h4>
 						<p class="description">Modifique su reserva</p>
 					</div>
