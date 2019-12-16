@@ -63,9 +63,22 @@
 					<li><a href="#team">Equipo</a></li>
 
 					<li><a href="#contact">Contacto</a></li>
+
+					<li th:if="${empleado == null}"><a th:href="@{/login}">Iniciar
+							sesión</a></li>
+					<li th:if="${empleado != null}"><span
+						th:text="${empleado.nombre}"></span></li>
 				</ul>
 			</nav>
 			<!-- #nav-menu-container -->
+		</div>
+		<div class="alert alert-info alert-dismissible fade show"
+			th:if="${info != null}" role="alert">
+			<div th:text="${info}"></div>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
 		</div>
 	</header>
 	<!-- #header -->
@@ -207,8 +220,8 @@
 
 					<div class="col-lg-4 box">
 						<h4 class="title">
-							<a th:href="@{/reserva/listaReserva}"><i class="ion-ios-trash"></i>ELIMINAR/MODIFICAR
-								RESERVA</a>
+							<a th:href="@{/reserva/listaReserva}"><i
+								class="ion-ios-trash"></i>ELIMINAR/MODIFICAR RESERVA</a>
 						</h4>
 						<p class="description">Modifique su reserva</p>
 					</div>
