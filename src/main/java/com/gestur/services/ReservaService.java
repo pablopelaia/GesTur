@@ -74,6 +74,11 @@ public class ReservaService {
 		return resRep.reservaPorLugar(lugar);
 	}
 
+        public List<Reserva> buscarReservaNombrePasajero(String nombre) throws ErrorServices {
+		validarLugar(nombre);
+		return resRep.reservaPorNombrePasajero(nombre);
+	}
+        
 	// Modifica TODA una RESERVA a la vez
 	@Transactional
 	public void modificarReserva(Date fechaActividad, Integer cantPasajeros, Integer id) throws ErrorServices {
