@@ -35,4 +35,6 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	@Query("UPDATE FROM Reserva c SET cantPasajeros=:cantPas WHERE c.id=:id")
 	public void modificarPasajeros(@Param("cantPas") Integer cantPasajeros, @Param("id") Integer id);
 
+    
+    
 }
