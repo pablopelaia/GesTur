@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< Updated upstream
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
@@ -576,4 +577,626 @@
 	<script src="js/main.js"></script>
 
 </body>
+=======
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <title>GesTur</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+
+        <link href="img/favicon.png" rel="icon">
+        <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
+            rel="stylesheet">
+
+        <!-- Bootstrap CSS File -->
+        <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Libraries CSS Files -->
+        <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css"
+              rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+        <!-- Main Stylesheet File -->
+        <link href="css/style.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+
+        <!--==========================
+    Header
+  ============================-->
+        <header id="header">
+            <div class="container-fluid">
+
+                <div id="logo" class="pull-left">
+                    <h1>
+                        <a href="#intro" class="scrollto">GesTur</a>
+                    </h1>
+                </div>
+
+                <nav id="nav-menu-container">
+                    <ul class="nav-menu">
+                        <li class="menu-active"><a href="#intro">Principal</a></li>
+
+                        <li><a href="#services">Servicios</a></li>
+
+                        <li><a href="#team">Equipo</a></li>
+
+                        <li><a href="#contact">Contacto</a></li>
+
+                        <li th:if="${empleado == null}"><a th:href="@{/login}">Iniciar
+                                sesión</a></li>
+                        <li th:if="${empleado != null}"><span
+                                th:text="${empleado.nombre}"></span></li>
+                    </ul>
+                </nav>
+                <!-- #nav-menu-container -->
+            </div>
+            <div class="alert alert-info alert-dismissible fade show"
+                 th:if="${info != null}" role="alert">
+                <div th:text="${info}"></div>
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </header>
+        <!-- #header -->
+
+        <!--==========================
+    Intro Section
+  ============================-->
+        <section id="intro">
+            <div class="intro-container">
+                <div id="introCarousel" class="carousel  slide carousel-fade"
+                     data-ride="carousel">
+
+                    <ol class="carousel-indicators"></ol>
+
+                    <div class="carousel-inner" role="listbox">
+
+                        <div class="carousel-item active">
+                            <div class="carousel-background">
+                                <img src="img/intro-carousel/1.jpg" alt="">
+                            </div>
+                            <div class="carousel-container">
+                                <div class="carousel-content">
+                                    <h2>BIENVENIDOS A MENDOZA</h2>
+                                    <p>No se recuerdan los días, se recuerdan los momentos.
+                                        ¡Gracias por elegirnos!</p>
+                                    <a href="#featured-services" class="btn-get-started scrollto">Inicie
+                                        su viaje</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="carousel-background">
+                                <img src="img/intro-carousel/2.jpg" alt="">
+                            </div>
+                            <div class="carousel-container">
+                                <div class="carousel-content">
+                                    <h2>CERRO DE LA GLORIA</h2>
+                                    <p>
+                                        “No hay nada como volver a un lugar que no ha cambiado, para
+                                        darte cuenta de cuánto has cambiado tú”<br />-Nelson Mandela
+                                    </p>
+                                    <a href="#featured-services" class="btn-get-started scrollto">Inicie
+                                        su viaje</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="carousel-background">
+                                <img src="img/intro-carousel/3.jpg" alt="">
+                            </div>
+                            <div class="carousel-container">
+                                <div class="carousel-content">
+                                    <h2>CAMINOS DEL VINO</h2>
+                                    <p>
+                                        “Viajar enseña tolerancia”<br />-Benjamin Disraeli
+                                    </p>
+                                    <a href="#featured-services" class="btn-get-started scrollto">Inicie
+                                        su viaje</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="carousel-background">
+                                <img src="img/intro-carousel/4.jpg" alt="">
+                            </div>
+                            <div class="carousel-container">
+                                <div class="carousel-content">
+                                    <h2>LAGO POTRERILLOS</h2>
+                                    <p>
+                                        “Si no escalas la montaña, jamás podrás disfrutar el paisaje”<br />-Pablo
+                                        Neruda
+                                    </p>
+                                    <a href="#featured-services" class="btn-get-started scrollto">Inicie
+                                        su viaje</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="carousel-background">
+                                <img src="img/intro-carousel/5.jpg" alt="">
+                            </div>
+                            <div class="carousel-container">
+                                <div class="carousel-content">
+                                    <h2>LAS LEÑAS</h2>
+                                    <p>
+                                        “Los que aseguran que es imposible, no deberían interrumpir a
+                                        los que estamos intentándolo”<br />-Thomas Alva Edison
+                                    </p>
+                                    <a href="#featured-services" class="btn-get-started scrollto">Inicie
+                                        su viaje</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <a class="carousel-control-prev" href="#introCarousel" role="button"
+                       data-slide="prev"> <span
+                            class="carousel-control-prev-icon ion-chevron-left"
+                            aria-hidden="true"></span> <span class="sr-only">Previous</span>
+                    </a> <a class="carousel-control-next" href="#introCarousel"
+                            role="button" data-slide="next"> <span
+                            class="carousel-control-next-icon ion-chevron-right"
+                            aria-hidden="true"></span> <span class="sr-only">Next</span>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+        <!-- #intro -->
+
+        <main id="main">
+
+            <!--==========================
+  Featured Services Section
+============================-->
+            <section id="featured-services">
+                <div class="container py-5">
+                    <div class="row">
+
+                        <div class="col-lg-4 box">
+                            <h4 class="title">
+                                <a th:href="@{/reserva}"><i class="ion-ios-bookmarks-outline"></i>CARGAR
+                                    RESERVA</a>
+                            </h4>
+                            <p class="description">Ingrese los datos</p>
+                        </div>
+
+                        <div class="col-lg-4 box box-bg">
+                            <h4 class="title">
+                                <a href=""><i class="ion-ios-search"></i>BUSCAR RESERVA/DATOS</a>
+                            </h4>
+                            <p class="description">Inicie una busqueda</p>
+                        </div>
+
+                        <div class="col-lg-4 box">
+                            <h4 class="title">
+                                <a th:href="@{/reserva/listaReserva}"><i
+                                        class="ion-ios-trash"></i>ELIMINAR/MODIFICAR RESERVA</a>
+                            </h4>
+                            <p class="description">Modifique su reserva</p>
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+            <!-- #featured-services -->
+
+
+
+            <!--==========================
+  Services Section
+============================-->
+            <section id="services">
+                <div class="container">
+
+                    <header class="section-header wow fadeInUp">
+                        <h3>SERVICIOS</h3>
+                        <p></p>
+                    </header>
+
+                    <div class="row">
+
+
+                        <div class="col-lg-4 col-md-6 box wow bounceInUp"
+                             data-wow-duration="1.4s">
+                            <div class="icon">
+                                <i class="ion-wineglass"></i>
+                            </div>
+                            <h4 class="title">
+                                <a href="http://www.gruposur.tur.ar/index.php/enoturismo">Degustación </a>
+                            </h4>
+                            <p class="description">Realizaremos degustaciones espontáneas
+                                o programadas (individuales o grupales) de los mas exquisitos
+                                vinos argentinos. El servicio de sommeliers puede ser bilingüe.
+                                Las opciones de degustación son de 4 etiquetas de vinos premium o
+                                de 5 etiquetas de vinos de alta gama, ambas a cargo del
+                                sommeliers de basta experiencia.</p>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 box wow bounceInUp"
+                             data-wow-delay="0.1s" data-wow-duration="1.4s">
+                            <div class="icon">
+                                <i class="ion-android-bicycle"></i>
+                            </div>
+                            <h4 class="title">
+                                <a href="http://www.gruposur.tur.ar/index.php/tours-mendoza">Circuito de bodegas en bicicleta</a>
+                            </h4>
+                            <p class="description">Salidas en bicicleta desde Ciudad de
+                                Mendoza hasta Luján de Cuyo, visitando una bodega por la mañana,
+                                otra al mediodía, realizando allí degustaciones y almuerzo, y una
+                                tercera bodega por la tarde antes de emprender el retorno a la
+                                ciudad. El recorrido tiene un total de 25 km y una duración
+                                aproximada de cuatro horas arriba de la bicicleta. El servicio
+                                funciona todo el año.</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 box wow bounceInUp"
+                             data-wow-delay="0.1s" data-wow-duration="1.4s">
+                            <div class="icon">
+                                <i class="ion-android-bus"></i>
+                            </div>
+                            <h4 class="title">
+                                <a href="http://www.gruposur.tur.ar/index.php/internacional">viajes exclusivos</a>
+                            </h4>
+                            <p class="description">Un viaje exclusivo significa ir desde
+                                la comodidad hasta el disfrute, pasando por no preocuparse de los
+                                pequeños detalles. En Gestur trabajamos para que sea un viaje
+                                único y una experiencia irrepetible.</p>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </section>
+            <!-- #services -->
+
+
+
+            <!--==========================
+  Team Section
+============================-->
+            <section id="team">
+                <div class="container">
+                    <div class="section-header wow fadeInUp">
+                        <h3>EQUIPO</h3>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-3 col-md-6 wow fadeInUp">
+                            <div class="member">
+                                <img src="img/team-1.jpg" class="img-fluid" alt="">
+                                <div class="member-info">
+                                    <div class="member-info-content">
+                                        <h4>Fernando Cocco</h4>
+                                        <span>Ingeniero en casi todo</span>
+                                        <div class="social">
+                                          
+                                            <a href="https://www.facebook.com/fernandoagustincocco"><i class="fa fa-facebook"></i></a>                                             }
+                                            <a href=""><i class="fa fa-linkedin"></i></a>
+                                            <a href=""><i class="fa fa-instagram"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="member">
+                                <img src="img/team-2.jpg" class="img-fluid" alt="">
+                                <div class="member-info">
+                                    <div class="member-info-content">
+                                        <h4>Cristian Andrade</h4>
+                                        <span>Tecnico Electromecanico NASA</span>
+                                        <div class="social">
+                                         
+                                            <a href="https://www.facebook.com/crixmax"><i	class="fa fa-facebook"></i></a>
+                                            <a href=""><i class="fa fa-linkedin"></i></a>
+                                            <a href=""><i class="fa fa-instagram"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="member">
+                                <img src="img/team-3.jpg" class="img-fluid" alt="">
+                                <div class="member-info">
+                                    <div class="member-info-content">
+                                        <h4>Tomás Leibrecht</h4>
+                                        <span>QA Google</span>
+                                        <div class="social">
+                                        
+                                            <a href="https://www.facebook.com/tomas.leibrecht.3"><i class="fa fa-facebook"></i></a>
+                                            <a href=""><i class="fa fa-linkedin"></i></a>
+                                            <a href="https://www.instagram.com/toleibrecht/?hl=es-la"><i class="fa fa-instagram"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="member">
+                                <img src="img/team-4.jpg" class="img-fluid" alt="">
+                                <div class="member-info">
+                                    <div class="member-info-content">
+                                        <h4>Pablo Pelaia</h4>
+                                        <span>Gerente General Facebook</span>
+                                        <div class="social">
+                                           
+                                            <a href="https://www.facebook.com/pablo.pelaia"><i class="fa fa-facebook"></i></a>
+                                            <a href=""><i class="fa fa-linkedin"></i></a>
+                                            <a href="https://www.instagram.com/csir_pablo/?hl=es-la"><i class="fa fa-instagram"></i></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-6 wow fadeInUp">
+                            <div class="member">
+                                <img src="img/sofi.jpeg" class="img-fluid" alt="">
+                                <div class="member-info">
+                                    <div class="member-info-content">
+                                        <h4>Sofia Videla</h4>
+                                        <span>Gerenta General Mercado Libre</span>
+                                        <div class="social">
+                                       
+                                            <a href="https://www.facebook.com/sofii.viidela"><i class="fa fa-facebook"></i></a>                                             }
+                                            <a href=""><i class="fa fa-linkedin"></i></a>
+                                            <a href="https://www.instagram.com/sofii.viidela/?hl=es-la"><i class="fa fa-instagram"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-6 wow fadeInUp">
+                            <div class="member">
+                                <img src="img/rami.jpg" class="img-fluid" alt="">
+                                <div class="member-info">
+                                    <div class="member-info-content">
+                                        <h4>Ramiro Sanchez</h4>
+                                        <span>Cajero Atomo</span>
+                                        <div class="social">
+                                           
+                                            <a href="https://www.facebook.com/fernandoagustincocco"><i class="fa fa-facebook"></i></a>                                             }
+                                            <a href=""><i class="fa fa-linkedin"></i></a>
+                                            <a href=""><i class="fa fa-instagram"></i></a>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-6 wow fadeInUp">
+                            <div class="member">
+                                <img src="img/cb.jpg" class="img-fluid" alt="">
+                                <div class="member-info">
+                                    <div class="member-info-content">
+                                        <h4>Cristian Burgos</h4>
+                                        <span></span>
+                                        <div class="social">
+                                         
+                                            <a href=""><i class="fa fa-facebook"></i></a>                                             }
+                                            <a href=""><i class="fa fa-linkedin"></i></a>
+                                            <a href=""><i class="fa fa-instagram"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                           <div class="col-lg-3 col-md-6 wow fadeInUp">
+                            <div class="member">
+                                <img src="img/mada.jpg" class="img-fluid" alt="">
+                                <div class="member-info">
+                                    <div class="member-info-content">
+                                        <h4>Madai Garcia</h4>
+                                        <span>CEO DE LA PROA</span>
+                                        <div class="social">
+                                       
+                                            <a href="https://www.facebook.com/madai.garcia.12382"><i class="fa fa-facebook"></i></a>                                             }
+                                            <a href=""><i class="fa fa-linkedin"></i></a>
+                                            <a href="https://www.instagram.com/madaai_g/?hl=es-la"><i class="fa fa-instagram"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+            <!-- #team -->
+
+            <!--==========================
+  Contact Section
+============================-->
+            <section id="contact" class="section-bg wow fadeInUp">
+                <div class="container">
+
+                    <div class="section-header">
+                        <h3>Contactenos</h3>
+
+                    </div>
+
+                    <div class="row contact-info">
+
+                        <div class="col-md-4">
+                            <div class="contact-address">
+                                <i class="ion-ios-location-outline"></i>
+                                <h3>Direccion</h3>
+                                <address>Olegario V Andrade 315,Ciudad, Mendoza
+                                    Argentina</address>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="contact-phone">
+                                <i class="ion-ios-telephone-outline"></i>
+                                <h3>Teléfono</h3>
+                                <p>
+                                    <a href="tel:+5492615027984">+549 0261 502-7984</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="contact-email">
+                                <i class="ion-ios-email-outline"></i>
+                                <h3>Email</h3>
+                                <p>
+                                    <a href="mailto:info@example.com">hola@eggeducacion.com</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form">
+                        <div id="sendmessage">Su mensaje ha sido enviado. ¡Gracias!</div>
+                        <div id="errormessage"></div>
+                        <form action="" method="post" role="form" class="contactForm">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" name="name" class="form-control" id="name"
+                                           placeholder="Nombre" data-rule="minlen:3"
+                                           data-msg="Ingrese al menos 3 caracteres" />
+                                    <div class="validation"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="email" class="form-control" name="email" id="email"
+                                           placeholder="Email" data-rule="email"
+                                           data-msg="Ingrese un email válido" />
+                                    <div class="validation"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="subject"
+                                       id="subject" placeholder="Asunto" data-rule="minlen:4"
+                                       data-msg="Ingrese al menos 8 caracteres" />
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="Message" rows="5"
+                                          data-rule="required" data-msg="Escriba un mensaje."
+                                          placeholder="Mensaje"></textarea>
+                                <div class="validation"></div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit">Enviar Mensaje</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </section>
+            <!-- #contact -->
+
+        </main>
+
+        <!--==========================
+    Footer
+  ============================-->
+        <footer id="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+
+
+                        <div class="col-lg-3 col-md-6 footer-links">
+                            <h4>Links</h4>
+                            <ul>
+                                <li><i class="ion-ios-arrow-right"></i> <a href="#">Principal</a></li>
+
+                                <li><i class="ion-ios-arrow-right"></i> <a href="#">Servicios</a></li>
+
+                                <li><i class="ion-ios-arrow-right"></i> <a href="#">Politica
+                                        de privacidad</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 footer-contact">
+                            <h4>Contacto</h4>
+                            <p>
+                                Olegario V Andrade, 315 <br> Ciudad, Mendoza <br>
+                                Argentina <br> <strong>Telefono:</strong> +549 0261 685-2036<br>
+                                <strong>Email:</strong> hola@eggeducacion.com<br>
+                            </p>
+
+                            <div class="social-links">
+                                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a> <a
+                                    href="#" class="facebook"><i class="fa fa-facebook"></i></a> <a
+                                    href="#" class="instagram"><i class="fa fa-instagram"></i></a> <a
+                                    href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                                <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </footer>
+        <!-- #footer -->
+
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+
+        <!-- JavaScript Libraries -->
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/jquery/jquery-migrate.min.js"></script>
+        <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/superfish/hoverIntent.js"></script>
+        <script src="lib/superfish/superfish.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        <script src="lib/touchSwipe/jquery.touchSwipe.min.js"></script>
+        <!-- Contact Form JavaScript File -->
+        <script src="contactform/contactform.js"></script>
+
+        <!-- Template Main Javascript File -->
+        <script src="js/main.js"></script>
+
+    </body>
+>>>>>>> Stashed changes
 </html>
