@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8">
 <title>GesTur</title>
@@ -63,9 +64,35 @@
 					<li><a href="#team">Equipo</a></li>
 
 					<li><a href="#contact">Contacto</a></li>
+
+					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar
+							sesión</a></li>
+
+					<li class="dropdown" sec:authorize="isAuthenticated()"><a
+						class="btn btn-outline-dark dropdown-toggle" href="#"
+						role="button" id="dropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><span
+							sec:authentication="name"></span></a>
+
+						<div class="dropdown-menu dropdown-menu-right"
+							aria-labelledby="dropdownMenuLink">
+							<form id="logoutForm" th:action="@{/logout}" method="post">
+								<button class="dropdown-item"
+									onclick="$('#logoutForm').submit();" type="submit">Cerrar
+									sesión</button>
+							</form>
+						</div></li>
 				</ul>
 			</nav>
 			<!-- #nav-menu-container -->
+		</div>
+		<div class="alert alert-success alert-dismissible fade show"
+			th:if="${success != null}" role="alert">
+			<div th:text="${success}"></div>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
 		</div>
 	</header>
 	<!-- #header -->
@@ -190,7 +217,7 @@
 			<div class="container py-5">
 				<div class="row">
 
-					<div class="col-lg-4 box">
+					<div class="col-lg-4 box" sec:authorize="hasRole('ROLE_USER')">
 						<h4 class="title">
 							<a th:href="@{/reserva}"><i class="ion-ios-bookmarks-outline"></i>CARGAR
 								RESERVA</a>
@@ -205,10 +232,10 @@
 						<p class="description">Inicie una busqueda</p>
 					</div>
 
-					<div class="col-lg-4 box">
+					<div class="col-lg-4 box" sec:authorize="hasRole('ROLE_USER')">
 						<h4 class="title">
-							<a href=""><i class="ion-ios-trash"></i>ELIMINAR/MODIFICAR
-								RESERVA</a>
+							<a th:href="@{/reserva/listaReserva}"><i
+								class="ion-ios-trash"></i>ELIMINAR/MODIFICAR RESERVA</a>
 						</h4>
 						<p class="description">Modifique su reserva</p>
 					</div>
@@ -296,7 +323,7 @@
 		<section id="team">
 			<div class="container">
 				<div class="section-header wow fadeInUp">
-					<h3>Team</h3>
+					<h3>EQUIPO</h3>
 
 				</div>
 
@@ -307,12 +334,12 @@
 							<img src="img/team-1.jpg" class="img-fluid" alt="">
 							<div class="member-info">
 								<div class="member-info-content">
-									<h4>Walter White</h4>
-									<span>Chief Executive Officer</span>
+									<h4>Fernando Cocco</h4>
+									<span>Ingeniero en casi todo</span>
 									<div class="social">
-										<a href=""><i class="fa fa-twitter"></i></a> <a href=""><i
-											class="fa fa-facebook"></i></a> <a href=""><i
-											class="fa fa-google-plus"></i></a> <a href=""><i
+										<a href=""><i class="fa fa-twitter"></i></a> <a
+											href="https://www.facebook.com/fernandoagustincocco"><i
+											class="fa fa-facebook"></i></a> } <a href=""><i
 											class="fa fa-linkedin"></i></a>
 									</div>
 								</div>
@@ -325,12 +352,12 @@
 							<img src="img/team-2.jpg" class="img-fluid" alt="">
 							<div class="member-info">
 								<div class="member-info-content">
-									<h4>Sarah Jhonson</h4>
-									<span>Product Manager</span>
+									<h4>Cristian Andrade</h4>
+									<span>Tecnico Electromecanico NASA</span>
 									<div class="social">
-										<a href=""><i class="fa fa-twitter"></i></a> <a href=""><i
+										<a href=""><i class="fa fa-twitter"></i></a> <a
+											href="https://www.facebook.com/crixmax"><i
 											class="fa fa-facebook"></i></a> <a href=""><i
-											class="fa fa-google-plus"></i></a> <a href=""><i
 											class="fa fa-linkedin"></i></a>
 									</div>
 								</div>
@@ -343,12 +370,12 @@
 							<img src="img/team-3.jpg" class="img-fluid" alt="">
 							<div class="member-info">
 								<div class="member-info-content">
-									<h4>William Anderson</h4>
-									<span>CTO</span>
+									<h4>Tomás Leibrecht</h4>
+									<span>QA Google</span>
 									<div class="social">
-										<a href=""><i class="fa fa-twitter"></i></a> <a href=""><i
+										<a href=""><i class="fa fa-twitter"></i></a> <a
+											href="https://www.facebook.com/tomas.leibrecht.3"><i
 											class="fa fa-facebook"></i></a> <a href=""><i
-											class="fa fa-google-plus"></i></a> <a href=""><i
 											class="fa fa-linkedin"></i></a>
 									</div>
 								</div>
@@ -361,13 +388,14 @@
 							<img src="img/team-4.jpg" class="img-fluid" alt="">
 							<div class="member-info">
 								<div class="member-info-content">
-									<h4>Amanda Jepson</h4>
-									<span>Accountant</span>
+									<h4>Pablo Pelaia</h4>
+									<span>Gerente General Facebook</span>
 									<div class="social">
-										<a href=""><i class="fa fa-twitter"></i></a> <a href=""><i
+										<a href=""><i class="fa fa-twitter"></i></a> <a
+											href="https://www.facebook.com/pablo.pelaia"><i
 											class="fa fa-facebook"></i></a> <a href=""><i
-											class="fa fa-google-plus"></i></a> <a href=""><i
 											class="fa fa-linkedin"></i></a>
+
 									</div>
 								</div>
 							</div>
@@ -405,9 +433,9 @@
 					<div class="col-md-4">
 						<div class="contact-phone">
 							<i class="ion-ios-telephone-outline"></i>
-							<h3>Telefono</h3>
+							<h3>Teléfono</h3>
 							<p>
-								<a href="tel:+155895548855">+549 0261 685-2036</a>
+								<a href="tel:+5492615027984">+549 0261 502-7984</a>
 							</p>
 						</div>
 					</div>
@@ -425,32 +453,32 @@
 				</div>
 
 				<div class="form">
-					<div id="sendmessage">Your message has been sent. Thank you!</div>
+					<div id="sendmessage">Su mensaje ha sido enviado. ¡Gracias!</div>
 					<div id="errormessage"></div>
 					<form action="" method="post" role="form" class="contactForm">
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<input type="text" name="name" class="form-control" id="name"
-									placeholder="Nombre" data-rule="minlen:4"
-									data-msg="Please enter at least 4 chars" />
+									placeholder="Nombre" data-rule="minlen:3"
+									data-msg="Ingrese al menos 3 caracteres" />
 								<div class="validation"></div>
 							</div>
 							<div class="form-group col-md-6">
 								<input type="email" class="form-control" name="email" id="email"
 									placeholder="Email" data-rule="email"
-									data-msg="Please enter a valid email" />
+									data-msg="Ingrese un email válido" />
 								<div class="validation"></div>
 							</div>
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control" name="subject"
 								id="subject" placeholder="Asunto" data-rule="minlen:4"
-								data-msg="Please enter at least 8 chars of subject" />
+								data-msg="Ingrese al menos 8 caracteres" />
 							<div class="validation"></div>
 						</div>
 						<div class="form-group">
 							<textarea class="form-control" name="Message" rows="5"
-								data-rule="required" data-msg="Please write something for us"
+								data-rule="required" data-msg="Escriba un mensaje."
 								placeholder="Mensaje"></textarea>
 							<div class="validation"></div>
 						</div>
@@ -527,6 +555,8 @@
 
 	<!-- JavaScript Libraries -->
 	<script src="lib/jquery/jquery.min.js"></script>
+	<script th:src="@{js/popper.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
 	<script src="lib/jquery/jquery-migrate.min.js"></script>
 	<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="lib/easing/easing.min.js"></script>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf-org">
+<head>
+<title>GesTur</title>
+<meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+
+	<div>
+
+		<div>
+			<div>Inicio de sesión</div>
+			<div>
+
+				<form th:action="@{/login}" method="post">
+
+					<div>
+						<input type="text" name="username" id="username"
+							placeholder="Nombre de usuario" required autofocus />
+					</div>
+
+					<div>
+						<input type="password" name="password" id="password"
+							placeholder="Contraseña" required />
+					</div>
+
+					<div>
+						<input type="submit" value="Iniciar sesión" />
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
