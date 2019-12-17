@@ -21,9 +21,9 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	@Query("SELECT c FROM Reserva c,Actividad d WHERE c.actividad.id=d.id AND d.lugar LIKE %:nombre% ORDER BY d.lugar")
 	public List<Reserva> reservaPorLugar(@Param("nombre") String nombre);
 
-        @Query("SELECT c FROM Reserva c,Pasajero p WHERE c.pasajero.id=p.id AND p.nombre LIKE %:pasajero% ORDER BY p.nombre")
-	public List<Reserva> reservaPorNombrePasajero(@Param("nombre") String pasajero);
-        
+	@Query("SELECT c FROM Reserva c,Pasajero p WHERE c.pasajero.id=p.id AND p.nombre LIKE %:pasajero% ORDER BY p.nombre")
+	public List<Reserva> reservaPorNombrePasajero(@Param("pasajero") String pasajero);
+
 	// Modificar todo al mismo tiempo
 	@Modifying
 	@Query("UPDATE FROM Reserva c SET fechaActividad=:fechaActividad,cantPasajeros=:cantPas WHERE c.id=:id")
@@ -38,6 +38,4 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	@Query("UPDATE FROM Reserva c SET cantPasajeros=:cantPas WHERE c.id=:id")
 	public void modificarPasajeros(@Param("cantPas") Integer cantPasajeros, @Param("id") Integer id);
 
-    
-    
 }
