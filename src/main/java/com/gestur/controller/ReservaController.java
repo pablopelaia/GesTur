@@ -72,14 +72,16 @@ public class ReservaController {
 	}
 
 	@GetMapping("/listaReserva")
-	public String listaReserva(@RequestParam(required = false) String nombre, ModelMap model) throws ErrorServices {
+	public String listaReserva(@RequestParam(required = false) String nombre,@RequestParam(required = false) String pasajero, ModelMap model) throws ErrorServices {
 		model.addAttribute("titulo", "Listado de Reservas");
 		List<Reserva> listaReserva;
 		if (nombre == null) {
 			listaReserva = resServ.listaReserva();
 		} else {
 			listaReserva = resServ.buscarReservaActividad(nombre);
-		}
+		} if(pasajero!=null){
+                    listaReserva = resServ.buscarReservaNombrePasajero(pasajero);
+                }
 		model.put("listaReserva", listaReserva);
 		return "reservas/listaReserva";
 	}
