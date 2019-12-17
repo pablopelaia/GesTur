@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8">
 <title>GesTur</title>
@@ -64,17 +65,30 @@
 
 					<li><a href="#contact">Contacto</a></li>
 
-					<li th:if="${empleado == null}"><a th:href="@{/login}">Iniciar
+					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar
 							sesión</a></li>
-					<li th:if="${empleado != null}"><span
-						th:text="${empleado.nombre}"></span></li>
+
+					<li class="dropdown" sec:authorize="isAuthenticated()"><a
+						class="btn btn-outline-dark dropdown-toggle" href="#"
+						role="button" id="dropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><span
+							sec:authentication="name"></span></a>
+
+						<div class="dropdown-menu dropdown-menu-right"
+							aria-labelledby="dropdownMenuLink">
+							<form id="logoutForm" th:action="@{/logout}" method="post">
+								<button class="dropdown-item"
+									onclick="$('#logoutForm').submit();" type="submit">Cerrar
+									sesión</button>
+							</form>
+						</div></li>
 				</ul>
 			</nav>
 			<!-- #nav-menu-container -->
 		</div>
-		<div class="alert alert-info alert-dismissible fade show"
-			th:if="${info != null}" role="alert">
-			<div th:text="${info}"></div>
+		<div class="alert alert-success alert-dismissible fade show"
+			th:if="${success != null}" role="alert">
+			<div th:text="${success}"></div>
 			<button type="button" class="close" data-dismiss="alert"
 				aria-label="Close">
 				<span aria-hidden="true">&times;</span>
@@ -203,7 +217,7 @@
 			<div class="container py-5">
 				<div class="row">
 
-					<div class="col-lg-4 box">
+					<div class="col-lg-4 box" sec:authorize="hasRole('ROLE_USER')">
 						<h4 class="title">
 							<a th:href="@{/reserva}"><i class="ion-ios-bookmarks-outline"></i>CARGAR
 								RESERVA</a>
@@ -218,7 +232,7 @@
 						<p class="description">Inicie una busqueda</p>
 					</div>
 
-					<div class="col-lg-4 box">
+					<div class="col-lg-4 box" sec:authorize="hasRole('ROLE_USER')">
 						<h4 class="title">
 							<a th:href="@{/reserva/listaReserva}"><i
 								class="ion-ios-trash"></i>ELIMINAR/MODIFICAR RESERVA</a>
@@ -323,9 +337,10 @@
 									<h4>Fernando Cocco</h4>
 									<span>Ingeniero en casi todo</span>
 									<div class="social">
-										<a href=""><i class="fa fa-twitter"></i></a>
-									 <a href="https://www.facebook.com/fernandoagustincocco"><i class="fa fa-facebook"></i></a>                                             }
-										<a href=""><i class="fa fa-linkedin"></i></a>
+										<a href=""><i class="fa fa-twitter"></i></a> <a
+											href="https://www.facebook.com/fernandoagustincocco"><i
+											class="fa fa-facebook"></i></a> } <a href=""><i
+											class="fa fa-linkedin"></i></a>
 									</div>
 								</div>
 							</div>
@@ -340,9 +355,10 @@
 									<h4>Cristian Andrade</h4>
 									<span>Tecnico Electromecanico NASA</span>
 									<div class="social">
-										<a href=""><i class="fa fa-twitter"></i></a>
-								    <a href="https://www.facebook.com/crixmax"><i	class="fa fa-facebook"></i></a>
-										<a href=""><i	class="fa fa-linkedin"></i></a>
+										<a href=""><i class="fa fa-twitter"></i></a> <a
+											href="https://www.facebook.com/crixmax"><i
+											class="fa fa-facebook"></i></a> <a href=""><i
+											class="fa fa-linkedin"></i></a>
 									</div>
 								</div>
 							</div>
@@ -357,9 +373,10 @@
 									<h4>Tomás Leibrecht</h4>
 									<span>QA Google</span>
 									<div class="social">
-										<a href=""><i class="fa fa-twitter"></i></a>
-										<a href="https://www.facebook.com/tomas.leibrecht.3"><i class="fa fa-facebook"></i></a>
-										<a href=""><i class="fa fa-linkedin"></i></a>
+										<a href=""><i class="fa fa-twitter"></i></a> <a
+											href="https://www.facebook.com/tomas.leibrecht.3"><i
+											class="fa fa-facebook"></i></a> <a href=""><i
+											class="fa fa-linkedin"></i></a>
 									</div>
 								</div>
 							</div>
@@ -374,9 +391,10 @@
 									<h4>Pablo Pelaia</h4>
 									<span>Gerente General Facebook</span>
 									<div class="social">
-										<a href=""><i class="fa fa-twitter"></i></a>
-										<a href="https://www.facebook.com/pablo.pelaia"><i class="fa fa-facebook"></i></a>
-										<a href=""><i	class="fa fa-linkedin"></i></a>
+										<a href=""><i class="fa fa-twitter"></i></a> <a
+											href="https://www.facebook.com/pablo.pelaia"><i
+											class="fa fa-facebook"></i></a> <a href=""><i
+											class="fa fa-linkedin"></i></a>
 
 									</div>
 								</div>
@@ -537,6 +555,8 @@
 
 	<!-- JavaScript Libraries -->
 	<script src="lib/jquery/jquery.min.js"></script>
+	<script th:src="@{js/popper.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
 	<script src="lib/jquery/jquery-migrate.min.js"></script>
 	<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="lib/easing/easing.min.js"></script>

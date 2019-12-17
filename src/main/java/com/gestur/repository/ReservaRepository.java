@@ -1,6 +1,5 @@
 package com.gestur.repository;
 
-import com.gestur.entities.Actividad;
 import com.gestur.entities.Reserva;
 import java.util.Date;
 import java.util.List;

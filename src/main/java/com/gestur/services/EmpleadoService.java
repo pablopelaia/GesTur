@@ -1,62 +1,76 @@
 package com.gestur.services;
 
 import com.gestur.entities.Empleado;
+import com.gestur.entities.Rol;
 import com.gestur.exceptions.ErrorServices;
 import com.gestur.repository.EmpleadoRepository;
-import java.util.List;
-import java.util.Optional;
-import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class EmpleadoService {
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service("empleadoService")
+public class EmpleadoService implements UserDetailsService {
 
 	@Autowired
 	private EmpleadoRepository er;
 
 	@Transactional
-	public void crearEmpleado(String nombre) throws ErrorServices {
+	public void crearEmpleado(String nombre, String username, String contraseña) throws ErrorServices {
 		Empleado e = new Empleado();
 		validarNombre(nombre);
 		e.setNombre(nombre);
+		e.setUsername(username);
+		e.setContraseña(contraseña);
+		e.setEnabled(true);
+		
+		
+		
 		er.save(e);
 
 	}
 
-	public List<Empleado> listaEmpleado() {
-		return er.empleadosPorNombre();
-	}
-
-	public List<Empleado> buscarEmpleado(String nombre) throws ErrorServices {
-		validarNombre(nombre);
-		return er.buscarEmpleado(nombre);
-	}
-
-	@Transactional
-	public void modificarEmpleado(String id, String nombre) throws ErrorServices {
-		validarID(id);
-		validarNombre(nombre);
-		Optional<Empleado> emp = er.findById(id);
-		if (emp.isPresent()) {
-			er.modificarNombreEmpleado(id, nombre);
-		} else {
-			throw new ErrorServices("No existe tal Empleado.");
-		}
-	}
-
-	@Transactional
-	public void borrarEmpleado(String id) throws ErrorServices {
-		validarID(id);
-		Optional<Empleado> emp = er.findById(id);
-		if (emp.isPresent()) {
-			Empleado empleado = emp.get();
-			er.delete(empleado);
-		} else {
-			throw new ErrorServices("No existe tal Empleado.");
-		}
-	}
-
+//
+//	public List<Empleado> listaEmpleado() {
+//		return er.empleadosPorNombre();
+//	}
+//
+//	public List<Empleado> buscarEmpleado(String nombre) throws ErrorServices {
+//		validarNombre(nombre);
+//		return er.buscarEmpleado(nombre);
+//	}
+//
+//	@Transactional
+//	public void modificarEmpleado(Long id, String nombre) throws ErrorServices {
+//		validarID(id);
+//		validarNombre(nombre);
+//		Empleado emp = er.findById(id).orElse(null);
+//		if (emp != null) {
+//			er.modificarNombreEmpleado(nombre, id);
+//		} else {
+//			throw new ErrorServices("No existe tal Empleado.");
+//		}
+//	}
+//
+//	@Transactional
+//	public void borrarEmpleado(Long id) throws ErrorServices {
+//		validarID(id);
+//		Empleado emp = er.findById(id).orElse(null);
+//		if (emp != null) {
+//			er.delete(emp);
+//		} else {
+//			throw new ErrorServices("No existe tal Empleado.");
+//		}
+//	}
+//
 	public void validarNombre(String nombre) throws ErrorServices {
 		if (nombre == null || nombre.isEmpty()) {
 			throw new ErrorServices("'Nombre' no puede ser nulo.");
@@ -66,17 +80,37 @@ public class EmpleadoService {
 		}
 	}
 
-	public void validarID(String id) throws ErrorServices {
-		if (id == null || id.isEmpty()) {
-			throw new ErrorServices("'ID' no puede ser nulo.");
-		}
-		if (!(id instanceof String)) {
-			throw new ErrorServices("'ID' debe ser una Cadena de Texto.");
-		}
-	}
+//
+//	public void validarID(Long id) throws ErrorServices {
+//		if (id == null) {
+//			throw new ErrorServices("'ID' no puede ser nulo.");
+//		}
+//		if (!(id instanceof Long)) {
+//			throw new ErrorServices("'ID' debe ser una Cadena de Texto.");
+//		}
+//	}
+//
+//	public Empleado buscarPorUsername(String username, String contraseña) {
+//		return er.findByUsernameAndContraseña(username, contraseña);
+//	}
+//	
+	@Override
+	@Transactional(readOnly = true)
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-	public Empleado buscarPorUsername(String username, String contraseña) {
-		return er.findByUsernameAndContraseña(username, contraseña);
+		Empleado empleado = er.findByUsername(username);
+
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+		for (Rol rol : empleado.getRoles()) {
+			authorities.add(new SimpleGrantedAuthority(rol.getAuthority()));
+		}
+
+		System.out.println(empleado.getUsername() + " " + empleado.getContraseña());
+
+		return new User(empleado.getUsername(), empleado.getContraseña(), empleado.getEnabled(), true, true, true,
+				authorities);
+
 	}
 
 }

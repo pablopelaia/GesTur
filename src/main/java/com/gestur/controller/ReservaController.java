@@ -50,7 +50,7 @@ public class ReservaController {
 	// formaction="crear"
 	@PostMapping("/crearReserva")
 	public String crearReserva(@RequestParam String nombre, @RequestParam String apellido,
-			@RequestParam String documento, @RequestParam(required = false) String empleadoId,
+			@RequestParam String documento, @RequestParam(required = false) Long empleadoId,
 			@RequestParam String actividadId, @RequestParam Integer cantPasajeros, @RequestParam String fechaActividad,
 			@RequestParam(required = false) String observaciones, @RequestParam(required = false) String opinionExito,
 			ModelMap model, String exito) throws ErrorServices {
@@ -65,7 +65,8 @@ public class ReservaController {
 			e.printStackTrace();
 		}
 
-		resServ.crearReserva(pasajero.getId(), "1", actividadId, date1, cantPasajeros, observaciones, opinionExito);
+		resServ.crearReserva(pasajero.getId(), (long) 1, actividadId, date1, cantPasajeros, observaciones,
+				opinionExito);
 
 		return "redirect:/reserva/listaReserva";
 	}
