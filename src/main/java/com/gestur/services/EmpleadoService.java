@@ -31,9 +31,9 @@ public class EmpleadoService implements UserDetailsService {
 		e.setUsername(username);
 		e.setContraseña(contraseña);
 		e.setEnabled(true);
-		
-		
-		
+		Rol rol = new Rol();
+		rol.setAuthority("ROLE_USER");
+		e.addRol(rol);
 		er.save(e);
 
 	}
