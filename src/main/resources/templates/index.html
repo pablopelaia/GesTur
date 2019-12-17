@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<<<<<<< Updated upstream
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8">
 <title>GesTur</title>
@@ -7,7 +9,7 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 
-
+<!-- Favicons -->
 <link href="img/favicon.png" rel="icon">
 <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -30,6 +32,12 @@
 <!-- Main Stylesheet File -->
 <link href="css/style.css" rel="stylesheet">
 
+<!-- =======================================================
+    Theme Name: BizPage
+    Theme URL: https://bootstrapmade.com/bizpage-bootstrap-business-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
 </head>
 
 <body>
@@ -44,6 +52,8 @@
 				<h1>
 					<a href="#intro" class="scrollto">GesTur</a>
 				</h1>
+				<!-- Uncomment below if you prefer to use an image logo -->
+				<!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
 			</div>
 
 			<nav id="nav-menu-container">
@@ -56,17 +66,30 @@
 
 					<li><a href="#contact">Contacto</a></li>
 
-					<li th:if="${empleado == null}"><a th:href="@{/login}">Iniciar
+					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar
 							sesión</a></li>
-					<li th:if="${empleado != null}"><span
-						th:text="${empleado.nombre}"></span></li>
+
+					<li class="dropdown" sec:authorize="isAuthenticated()"><a
+						class="btn btn-outline-dark dropdown-toggle" href="#"
+						role="button" id="dropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><span
+							sec:authentication="name"></span></a>
+
+						<div class="dropdown-menu dropdown-menu-right"
+							aria-labelledby="dropdownMenuLink">
+							<form id="logoutForm" th:action="@{/logout}" method="post">
+								<button class="dropdown-item"
+									onclick="$('#logoutForm').submit();" type="submit">Cerrar
+									sesión</button>
+							</form>
+						</div></li>
 				</ul>
 			</nav>
 			<!-- #nav-menu-container -->
 		</div>
-		<div class="alert alert-info alert-dismissible fade show"
-			th:if="${info != null}" role="alert">
-			<div th:text="${info}"></div>
+		<div class="alert alert-success alert-dismissible fade show"
+			th:if="${success != null}" role="alert">
+			<div th:text="${success}"></div>
 			<button type="button" class="close" data-dismiss="alert"
 				aria-label="Close">
 				<span aria-hidden="true">&times;</span>
@@ -189,13 +212,13 @@
 	<main id="main">
 
 		<!--==========================
-  Featured Services Section
-============================-->
+      Featured Services Section
+    ============================-->
 		<section id="featured-services">
 			<div class="container py-5">
 				<div class="row">
 
-					<div class="col-lg-4 box">
+					<div class="col-lg-4 box" sec:authorize="hasRole('ROLE_USER')">
 						<h4 class="title">
 							<a th:href="@{/reserva}"><i class="ion-ios-bookmarks-outline"></i>CARGAR
 								RESERVA</a>
@@ -210,7 +233,7 @@
 						<p class="description">Inicie una busqueda</p>
 					</div>
 
-					<div class="col-lg-4 box">
+					<div class="col-lg-4 box" sec:authorize="hasRole('ROLE_USER')">
 						<h4 class="title">
 							<a th:href="@{/reserva/listaReserva}"><i
 								class="ion-ios-trash"></i>ELIMINAR/MODIFICAR RESERVA</a>
@@ -227,8 +250,8 @@
 
 
 		<!--==========================
-  Services Section
-============================-->
+      Services Section
+    ============================-->
 		<section id="services">
 			<div class="container">
 
@@ -246,8 +269,7 @@
 							<i class="ion-wineglass"></i>
 						</div>
 						<h4 class="title">
-							<a href="http://www.gruposur.tur.ar/index.php/enoturismo">Degustación
-							</a>
+							<a href="">Degustación </a>
 						</h4>
 						<p class="description">Realizaremos degustaciones espontáneas
 							o programadas (individuales o grupales) de los mas exquisitos
@@ -263,8 +285,7 @@
 							<i class="ion-android-bicycle"></i>
 						</div>
 						<h4 class="title">
-							<a href="http://www.gruposur.tur.ar/index.php/tours-mendoza">Circuito
-								de bodegas en bicicleta</a>
+							<a href="">Circuito de bodegas en bicicleta</a>
 						</h4>
 						<p class="description">Salidas en bicicleta desde Ciudad de
 							Mendoza hasta Luján de Cuyo, visitando una bodega por la mañana,
@@ -280,8 +301,7 @@
 							<i class="ion-android-bus"></i>
 						</div>
 						<h4 class="title">
-							<a href="http://www.gruposur.tur.ar/index.php/internacional">viajes
-								exclusivos</a>
+							<a href="">viajes exclusivos</a>
 						</h4>
 						<p class="description">Un viaje exclusivo significa ir desde
 							la comodidad hasta el disfrute, pasando por no preocuparse de los
@@ -295,8 +315,6 @@
 			</div>
 		</section>
 		<!-- #services -->
-
-
 
 		<!--==========================
   Team Section
@@ -319,10 +337,10 @@
 									<span>Ingeniero en casi todo</span>
 									<div class="social">
 
-										<a href="https://www.facebook.com/fernandoagustincocco"><i
-											class="fa fa-facebook"></i></a> } <a href=""><i
-											class="fa fa-linkedin"></i></a> <a href=""><i
-											class="fa fa-instagram"></i></a>
+										<a href="https://www.facebook.com/fernandoagustincocco"
+											target="_blank"><i class="fa fa-facebook"></i></a> <a href=""
+											target="_blank"><i class="fa fa-linkedin"></i></a> <a href=""
+											target="_blank"><i class="fa fa-instagram"></i></a>
 									</div>
 								</div>
 							</div>
@@ -338,9 +356,9 @@
 									<span>Tecnico Electromecanico NASA</span>
 									<div class="social">
 
-										<a href="https://www.facebook.com/crixmax"><i
-											class="fa fa-facebook"></i></a> <a href=""><i
-											class="fa fa-linkedin"></i></a> <a href=""><i
+										<a href="https://www.facebook.com/crixmax" target="_blank"><i
+											class="fa fa-facebook"></i></a> <a href="" target="_blank"><i
+											class="fa fa-linkedin"></i></a> <a href="" target="_blank"><i
 											class="fa fa-instagram"></i></a>
 									</div>
 								</div>
@@ -358,10 +376,10 @@
 									<div class="social">
 
 										<a href="https://www.facebook.com/tomas.leibrecht.3"><i
-											class="fa fa-facebook"></i></a> <a href=""><i
-											class="fa fa-linkedin"></i></a> <a
-											href="https://www.instagram.com/toleibrecht/?hl=es-la"><i
-											class="fa fa-instagram"></i></a>
+											class="fa fa-facebook" target="_blank"></i></a> <a href=""><i
+											class="fa fa-linkedin" target="_blank"></i></a> <a
+											href="https://www.instagram.com/toleibrecht/?hl=es-la"
+											target="_blank"><i class="fa fa-instagram"></i></a>
 									</div>
 								</div>
 							</div>
@@ -377,17 +395,19 @@
 									<span>Gerente General Facebook</span>
 									<div class="social">
 
-										<a href="https://www.facebook.com/pablo.pelaia"><i
-											class="fa fa-facebook"></i></a> <a href=""><i
-											class="fa fa-linkedin"></i></a> <a
-											href="https://www.instagram.com/csir_pablo/?hl=es-la"><i
-											class="fa fa-instagram"></i></a>
+										<a href="https://www.facebook.com/pablo.pelaia"
+											target="_blank"><i class="fa fa-facebook"></i></a> <a href=""
+											target="_blank"><i class="fa fa-linkedin"></i></a> <a
+											href="https://www.instagram.com/csir_pablo/?hl=es-la"
+											target="_blank"><i class="fa fa-instagram"></i></a>
 
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<!-- 				</div> -->
+					<!-- 				<div class="row"> -->
 
 					<div class="col-lg-3 col-md-6 wow fadeInUp">
 						<div class="member">
@@ -398,11 +418,11 @@
 									<span>Gerenta General Mercado Libre</span>
 									<div class="social">
 
-										<a href="https://www.facebook.com/sofii.viidela"><i
-											class="fa fa-facebook"></i></a> } <a href=""><i
-											class="fa fa-linkedin"></i></a> <a
-											href="https://www.instagram.com/sofii.viidela/?hl=es-la"><i
-											class="fa fa-instagram"></i></a>
+										<a href="https://www.facebook.com/sofii.viidela"
+											target="_blank"><i class="fa fa-facebook"></i></a> } <a
+											href="" target="_blank"><i class="fa fa-linkedin"></i></a> <a
+											href="https://www.instagram.com/sofii.viidela/?hl=es-la"
+											target="_blank"><i class="fa fa-instagram"></i></a>
 									</div>
 								</div>
 							</div>
@@ -418,10 +438,10 @@
 									<span>Cajero Atomo</span>
 									<div class="social">
 
-										<a href="https://www.facebook.com/fernandoagustincocco"><i
-											class="fa fa-facebook"></i></a> } <a href=""><i
-											class="fa fa-linkedin"></i></a> <a href=""><i
-											class="fa fa-instagram"></i></a>
+										<a href="https://www.facebook.com/fernandoagustincocco"
+											target="_blank"><i class="fa fa-facebook"></i></a> <a href=""
+											target="_blank"><i class="fa fa-linkedin"></i></a> <a href=""
+											target="_blank"><i class="fa fa-instagram"></i></a>
 
 									</div>
 								</div>
@@ -438,9 +458,9 @@
 									<span></span>
 									<div class="social">
 
-										<a href=""><i class="fa fa-facebook"></i></a> } <a href=""><i
-											class="fa fa-linkedin"></i></a> <a href=""><i
-											class="fa fa-instagram"></i></a>
+										<a href="" target="_blank"><i class="fa fa-facebook"></i></a>
+										<a href="" target="_blank"><i class="fa fa-linkedin"></i></a>
+										<a href="" target="_blank"><i class="fa fa-instagram"></i></a>
 									</div>
 								</div>
 							</div>
@@ -456,11 +476,11 @@
 									<span>CEO DE LA PROA</span>
 									<div class="social">
 
-										<a href="https://www.facebook.com/madai.garcia.12382"><i
-											class="fa fa-facebook"></i></a> } <a href=""><i
-											class="fa fa-linkedin"></i></a> <a
-											href="https://www.instagram.com/madaai_g/?hl=es-la"><i
-											class="fa fa-instagram"></i></a>
+										<a href="https://www.facebook.com/madai.garcia.12382"
+											target="_blank"><i class="fa fa-facebook"></i></a> <a href=""
+											target="_blank"><i class="fa fa-linkedin"></i></a> <a
+											href="https://www.instagram.com/madaai_g/?hl=es-la"
+											target="_blank"><i class="fa fa-instagram"></i></a>
 									</div>
 								</div>
 							</div>
