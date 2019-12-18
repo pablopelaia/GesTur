@@ -45,6 +45,14 @@
     Header
   ============================-->
 	<header id="header">
+		<div class="alert alert-success alert-dismissible fade show"
+			id="success-alert" th:if="${success != null}" role="alert">
+			<div th:text="${success}"></div>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 		<div class="container-fluid">
 
 			<div id="logo" class="pull-left">
@@ -65,34 +73,29 @@
 
 					<li><a href="#contact">Contacto</a></li>
 
+					<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+						th:href="@{/empleado}">Crear empleado</a></li>
+
 					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar
 							sesión</a></li>
 
 					<li class="dropdown" sec:authorize="isAuthenticated()"><a
-						class="btn btn-outline-dark dropdown-toggle" href="#"
-						role="button" id="dropdownMenuLink" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"><span
-							sec:authentication="name"></span></a>
+						class="dropdown-toggle" href="#" role="button"
+						id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"><span sec:authentication="name"></span></a>
 
-						<div class="dropdown-menu dropdown-menu-right"
+						<div
+							class="dropdown-menu dropdown-menu-right bg-transparent border-top-0 border-bottom-0 border-left-0 border-right-0"
 							aria-labelledby="dropdownMenuLink">
 							<form id="logoutForm" th:action="@{/logout}" method="post">
-								<button class="dropdown-item"
+								<a class="dropdown-item text-white" href="javascript:void(0)"
 									onclick="$('#logoutForm').submit();" type="submit">Cerrar
-									sesión</button>
+									sesión</a>
 							</form>
 						</div></li>
 				</ul>
 			</nav>
 			<!-- #nav-menu-container -->
-		</div>
-		<div class="alert alert-success alert-dismissible fade show"
-			th:if="${success != null}" role="alert">
-			<div th:text="${success}"></div>
-			<button type="button" class="close" data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
 		</div>
 	</header>
 	<!-- #header -->
@@ -650,6 +653,13 @@
 
 	<!-- Template Main Javascript File -->
 	<script src="js/main.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("#success-alert").fadeTo(1000, 500).slideUp(500, function() {
+				$("#success-alert").slideUp(500);
+			});
+		});
+	</script>
 
 </body>
 </html>
