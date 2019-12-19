@@ -20,8 +20,8 @@ public class Reserva {
 	@Temporal(TemporalType.DATE)
 	private Date fechaCarga;
 
-	@Temporal(TemporalType.DATE)
-	private Date fechaActividad;
+	//@Temporal(TemporalType.DATE)
+	private String fechaActividad;
 
 	private Integer cantPasajeros;
 
@@ -32,7 +32,7 @@ public class Reserva {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Actividad actividad;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Empleado empleado;
 
 	@ManyToOne
@@ -62,11 +62,11 @@ public class Reserva {
 		this.fechaCarga = fechaCarga;
 	}
 
-	public Date getFechaActividad() {
+	public String getFechaActividad() {
 		return fechaActividad;
 	}
 
-	public void setFechaActividad(Date fechaActividad) {
+	public void setFechaActividad(String fechaActividad) {
 		this.fechaActividad = fechaActividad;
 	}
 

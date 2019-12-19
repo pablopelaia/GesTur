@@ -3,7 +3,6 @@ package com.gestur.controller;
 import com.gestur.entities.Empleado;
 import com.gestur.exceptions.ErrorServices;
 import com.gestur.services.EmpleadoService;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -16,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 

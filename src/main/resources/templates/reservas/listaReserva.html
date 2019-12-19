@@ -78,10 +78,11 @@
 							<td th:text="${reserva.actividad.nombre}"></td>
 							<td th:text="${reserva.cantPasajeros}"></td>
 							<td th:text="${reserva.fechaActividad}"></td>
-							<td><a th:href="'#edit'" title="Editar"><i
-									class="ion-edit col" style="color: #dbbb2a;"></i></a><a
-								th:href="'#eliminar'" title="Eliminar"><i
-									class="ion-ios-trash col" style="color: red;"></i></a></td>
+							<td><a th:href="@{/reserva/borrarReserva/}+${reserva.id}"
+								title="Eliminar"><i class="ion-ios-trash col"
+									style="color: red;"></i></a> <a
+								th:href="@{/reserva/editarReserva/}+${reserva.id}" title="Editar"><i
+									class="ion-edit col" style="color: #dbbb2a;"></i></a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -92,6 +93,8 @@
 				th:text="' Volver al inicio'"></a>
 		</div>
 	</div>
+
+	<script src="/lib/jquery/jquery.min.js"></script>
 
 </body>
 </html>

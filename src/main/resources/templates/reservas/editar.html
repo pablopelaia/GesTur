@@ -8,8 +8,8 @@
 <meta content="" name="description">
 
 <!-- Favicons -->
-<link href="img/favicon.png" rel="icon">
-<link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+<link href="/img/favicon.png" rel="icon">
+<link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
 <link
@@ -17,18 +17,18 @@
 	rel="stylesheet">
 
 <!-- Bootstrap CSS File -->
-<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Libraries CSS Files -->
-<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link href="lib/animate/animate.min.css" rel="stylesheet">
-<link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-<link href="lib/owlcarousel/assets/owl.carousel.min.css"
+<link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="/lib/animate/animate.min.css" rel="stylesheet">
+<link href="/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+<link href="/lib/owlcarousel/assets/owl.carousel.min.css"
 	rel="stylesheet">
-<link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+<link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 
 <!-- Main Stylesheet File -->
-<link href="css/style.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 
 <!-- =======================================================
     Theme Name: BizPage
@@ -62,35 +62,41 @@
 				<div class="card-header bg-secondary" th:text="${cabecera}"></div>
 				<div class="card-body">
 
-					<form th:action="@{/reserva/crearReserva}" method="post">
+					<form th:action="@{/reserva/editarReserva}" th:object="${reserva}"
+						method="post">
 
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Nombre</label>
 							<div class="col-sm-6">
-								<input type="text" name="nombre" class="form-control"
-									autocomplete="no" required />
+								<input type="text" name="nombre" th:field="*{pasajero.nombre}"
+									class="form-control" autocomplete="no" required
+									disabled="disabled" />
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Apellido</label>
 							<div class="col-sm-6">
-								<input type="text" name="apellido" class="form-control"
-									autocomplete="no" required />
+								<input type="text" name="apellido"
+									th:field="*{pasajero.apellido}" class="form-control"
+									autocomplete="no" required disabled="disabled" />
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Documento</label>
 							<div class="col-sm-6">
-								<input type="text" name="documento" class="form-control"
-									autocomplete="no" required />
+								<input type="text" name="documento"
+									th:field="*{pasajero.documento}" class="form-control"
+									autocomplete="no" required disabled="disabled" />
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Actividad</label>
 							<div class="col-sm-6">
-								<select class="custom-select" name="actividadId" required>
-									<option th:each="actividad:${actividades}"
-										th:value="${actividad.id}" th:text="${actividad.nombre}"></option>
+								<select class="custom-select" th:field="*{actividad}"
+									name="actividadId" disabled="disabled" required>
+									<option th:text="${reserva.actividad.nombre}"
+										th:value="${reserva.actividad}" disabled="disabled"
+										selected="selected"></option>
 								</select>
 							</div>
 						</div>
@@ -98,7 +104,8 @@
 							<label class="col-sm-2 col-form-label">Cantidad de
 								Pasajeros</label>
 							<div class="col-sm-6">
-								<input type="number" name="cantPasajeros" class="form-control"
+								<input type="number" name="cantPasajeros"
+									th:field="*{cantPasajeros}" class="form-control"
 									autocomplete="no" min=1 required />
 							</div>
 						</div>
@@ -112,23 +119,29 @@
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Fecha</label>
 							<div class="col-sm-6">
-								<input type="date" name="fechaActividad" class="form-control"
-									autocomplete="no" required />
+								<input type="date" name="fechaActividad"
+									th:field="*{fechaActividad}"
+									th:placeholder="${reserva.fechaActividad}" class="form-control"
+									autocomplete="no" required="required" />
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Observaciones</label>
 							<div class="col-sm-6">
 								<textarea style="resize: none; height: 100px;"
-									name="observaciones" class="form-control"></textarea>
+									name="observaciones" th:field="*{observaciones}"
+									class="form-control"></textarea>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Empleado</label>
 							<div class="col-sm-6">
-								<select class="custom-select" name="empleadoId" required>
-									<option th:each="empleado:${empleados}"
-										th:value="${empleado.id}" th:text="${empleado.nombre}"></option>
+
+								<select class="custom-select" th:field="*{empleado}"
+									name="empleadoId" disabled="disabled" required>
+									<option th:value="${reserva.empleado}"
+										th:text="${reserva.empleado.nombre}" disabled="disabled"
+										selected="selected"></option>
 								</select>
 							</div>
 						</div>
@@ -136,7 +149,7 @@
 							<a class="btn btn-secondary ml-3" th:href="@{/}">&laquo;
 								Volver</a>
 							<div class="mr-3">
-								<input type="submit" value="Crear reserva"
+								<input type="submit" value="Editar reserva"
 									class="btn btn-secondary" />
 							</div>
 

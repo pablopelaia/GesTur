@@ -3,30 +3,39 @@ package com.gestur.controller;
 import com.gestur.entities.Pasajero;
 import com.gestur.entities.Reserva;
 import com.gestur.exceptions.ErrorServices;
+import com.gestur.repository.ReservaRepository;
 import com.gestur.services.ActividadService;
 import com.gestur.services.EmpleadoService;
 import com.gestur.services.PasajeroService;
 import com.gestur.services.ReservaService;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @RequestMapping("/reserva")
+@SessionAttributes("reserva")
 public class ReservaController {
 
 	@Autowired
 	private ReservaService resServ;
+
+	@Autowired
+	private ReservaRepository resrep;
 
 	@Autowired
 	private ActividadService acSev;
@@ -63,15 +72,15 @@ public class ReservaController {
 
 		Pasajero pasajero = pasServ.crear(nombre, apellido, documento, null, null);
 
-		Date date1 = null;
-		try {
-			System.out.println(fechaActividad);
-			date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaActividad);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+//		Date date1 = null;
+//		try {
+//			System.out.println(fechaActividad);
+//			date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaActividad);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 
-		resServ.crearReserva(pasajero.getId(), empleadoId, actividadId, date1, cantPasajeros, observaciones,
+		resServ.crearReserva(pasajero.getId(), empleadoId, actividadId, fechaActividad, cantPasajeros, observaciones,
 				opinionExito);
 
 		return "redirect:/reserva/listaReserva";
@@ -86,18 +95,25 @@ public class ReservaController {
 		return "reservas/listaReserva";
 	}
 
-	@GetMapping("/editarReserva")
-	public String edRes(ModelMap model) throws ErrorServices {
-		model.addAttribute("titulo", "Edite una Reserva completa");
-		return "modificarReserva.html";
+	@GetMapping("/editarReserva/{id}")
+	public String edRes(@PathVariable(value = "id") Integer id, Model model) throws ErrorServices {
+		model.addAttribute("reserva", resServ.buscarReservaPorId(id));
+		model.addAttribute("titulo", "Editar Reserva");
+		return "reservas/editar";
 	}
 
-	// formaction="res"
 	@PostMapping("/editarReserva")
-	public String editarReserva(@RequestParam Date fechaActividad, @RequestParam Integer cantPasajeros,
-			@RequestParam Integer id, String exito, ModelMap model) throws ErrorServices {
-		resServ.modificarReserva(fechaActividad, cantPasajeros, id);
-		return "redirect:/listaReserva";
+	public String edReserva(@Valid Reserva reserva, BindingResult result, Model model, SessionStatus status)
+			throws ErrorServices {
+		if (result.hasErrors()) {
+//			System.out.println(result.);
+			model.addAttribute("titulo", "Editar Reserva");
+			return "reservas/editar";
+		}
+
+		resrep.save(reserva);
+		status.setComplete();
+		return "redirect:/reserva/listaReserva";
 	}
 
 	@GetMapping("/editarFecha")
@@ -106,13 +122,13 @@ public class ReservaController {
 		return "editarFecha.html";
 	}
 
-	// formaction="fecha"
-	@PostMapping("/editarFecha")
-	public String editarFecha(@RequestParam Date fechaActividad, @RequestParam Integer id, String exito, ModelMap model)
-			throws ErrorServices {
-		resServ.modificarReserva(fechaActividad, id);
-		return "redirect:/listaReserva";
-	}
+//	// formaction="fecha"
+//	@PostMapping("/editarFecha")
+//	public String editarFecha(@RequestParam Date fechaActividad, @RequestParam Integer id, String exito, ModelMap model)
+//			throws ErrorServices {
+//		resServ.modificarReserva(fechaActividad, id);
+//		return "redirect:/listaReserva";
+//	}
 
 	@GetMapping("/editarCantPasajeros")
 	public String edPas(ModelMap model) throws ErrorServices {
@@ -128,17 +144,12 @@ public class ReservaController {
 		return "redirect:/listaReserva";
 	}
 
-	@GetMapping("/borrarReserva")
-	public String borRes(ModelMap model) {
-		model.addAttribute("titulo", "Elimine una Reserva");
-		return "borrarReserva.html";
-	}
-
 	// formaction="borrar"
-	@PostMapping("/borrarReserva")
-	public String borrarReserva(@RequestParam Integer id) throws ErrorServices {
+	@GetMapping("/borrarReserva/{id}")
+	public String borrarReserva(@PathVariable(value = "id") Integer id) throws ErrorServices {
+		System.out.println(id);
 		resServ.borrarReserva(id);
-		return "redirect:/listaReserva";
+		return "redirect:/reserva/listaReserva";
 	}
 
 	@GetMapping("/buscar-res-pax")
@@ -180,32 +191,14 @@ public class ReservaController {
 			@RequestParam(required = false) String hasta, Model model) {
 
 		List<Reserva> lista = null;
-		Date date1 = null;
-		Date date2 = null;
 
 		if (desde != null && !desde.isBlank()) {
 
-			try {
-				date1 = new SimpleDateFormat("yyyy-MM-dd").parse(desde);
-			} catch (ParseException e) {
-				e.printStackTrace();
+			if (hasta == null || hasta.isBlank()) {
+				hasta = desde;
 			}
 
-			if (hasta != null && !hasta.isBlank()) {
-				try {
-					date2 = new SimpleDateFormat("yyyy-MM-dd").parse(hasta);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			} else {
-				try {
-					date2 = new SimpleDateFormat("yyyy-MM-dd").parse(desde);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			}
-
-			lista = resServ.buscarReservaPorFecha(date1, date2);
+			lista = resServ.buscarReservaPorFecha(desde, hasta);
 			model.addAttribute("listaReserva", lista);
 			model.addAttribute("titulo", "Listado de Reservas");
 
@@ -213,14 +206,10 @@ public class ReservaController {
 		}
 
 		if (hasta != null && !hasta.isBlank()) {
-			try {
-				date1 = new SimpleDateFormat("yyyy-MM-dd").parse(hasta);
-				date2 = new SimpleDateFormat("yyyy-MM-dd").parse(hasta);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
 
-			lista = resServ.buscarReservaPorFecha(date1, date2);
+			desde = hasta;
+
+			lista = resServ.buscarReservaPorFecha(desde, hasta);
 			model.addAttribute("listaReserva", lista);
 			model.addAttribute("titulo", "Listado de Reservas");
 

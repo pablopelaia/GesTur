@@ -29,7 +29,7 @@ public class ReservaService {
 	private PasajeroRepository pasRep;
 
 	@Transactional
-	public void crearReserva(String pasajeroId, Long empleadoId, String actividadId, Date fechaActividad,
+	public void crearReserva(String pasajeroId, Long empleadoId, String actividadId, String fechaActividad,
 			Integer cantPasajeros, String observaciones, String opinionExito) throws ErrorServices {
 		validarReserva(pasajeroId, empleadoId, actividadId, fechaActividad, cantPasajeros);
 		Reserva reserva = new Reserva();
@@ -62,12 +62,17 @@ public class ReservaService {
 		return resRep.listaReserva();
 	}
 
+	public Reserva buscarReservaPorId(Integer id) {
+		return resRep.findById(id).orElse(null);
+	}
+
 	// Reserva por NOMBRE de ACTIVIDAD
 	public List<Reserva> buscarReservaActividad(String id) {
 		return resRep.reservaPorActividad(id);
 	}
 
 	public List<Reserva> buscarReservaNombrePasajero(String nombre) {
+		nombre = '%' + nombre + '%';
 		return resRep.reservaPorNombrePasajero(nombre);
 	}
 
@@ -75,7 +80,7 @@ public class ReservaService {
 		return resRep.reservaPorDocumentoPasajero(documento);
 	}
 
-	public List<Reserva> buscarReservaPorFecha(Date desde, Date hasta) {
+	public List<Reserva> buscarReservaPorFecha(String desde, String hasta) {
 		return resRep.findByFechaActividadBetween(desde, hasta);
 	}
 
@@ -134,7 +139,7 @@ public class ReservaService {
 		}
 	}
 
-	public void validarReserva(String pasajeroId, Long empleadoId, String actividadId, Date fechaActividad,
+	public void validarReserva(String pasajeroId, Long empleadoId, String actividadId, String fechaActividad,
 			Integer cantPasajeros) throws ErrorServices {
 		if (pasajeroId == null || pasajeroId.isEmpty()) {
 			throw new ErrorServices("'pasajeroId' no puede ser nulo.");
@@ -161,7 +166,7 @@ public class ReservaService {
 		if (!(actividadId instanceof String)) {
 			throw new ErrorServices("'actividadId' debe ser una Cadena de Texto.");
 		}
-		if (!(fechaActividad instanceof Date)) {
+		if (!(fechaActividad instanceof String)) {
 			throw new ErrorServices("'Fecha de Actividad' debe ser una Fecha.");
 		}
 		if (!(cantPasajeros instanceof Integer)) {

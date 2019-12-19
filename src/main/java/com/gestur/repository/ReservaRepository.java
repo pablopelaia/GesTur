@@ -18,7 +18,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	@Query("SELECT c FROM Reserva c WHERE c.actividad.id = :id")
 	public List<Reserva> reservaPorActividad(@Param("id") String id);
 
-	@Query("SELECT c FROM Reserva c WHERE c.pasajero.nombre LIKE %:pasajero%")
+	@Query("SELECT c FROM Reserva c WHERE concat(c.pasajero.nombre, ' ', c.pasajero.apellido) LIKE ?1")
 	public List<Reserva> reservaPorNombrePasajero(@Param("pasajero") String pasajero);
 
 	// Modificar todo al mismo tiempo
@@ -35,7 +35,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	@Query("UPDATE FROM Reserva c SET cantPasajeros=:cantPas WHERE c.id=:id")
 	public void modificarPasajeros(@Param("cantPas") Integer cantPasajeros, @Param("id") Integer id);
 
-	public List<Reserva> findByFechaActividadBetween(Date desde, Date hasta);
+	public List<Reserva> findByFechaActividadBetween(String desde, String hasta);
 
 	@Query("select r from Reserva r where r.pasajero.documento = ?1")
 	public List<Reserva> reservaPorDocumentoPasajero(String documento);
