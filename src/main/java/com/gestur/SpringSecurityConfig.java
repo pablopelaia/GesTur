@@ -42,11 +42,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 
 				.antMatchers("/", "/index", "/css/**", "/js/**", "/contactform/**", "/fonts/**", "/img/**", "/lib/**",
-						"/vendor/**")
+						"/vendor/**", "/reserva/buscar-noAuth")
 
 				.permitAll().antMatchers("/empleado/**").hasRole("ADMIN")
 				/* .antMatchers("/reserva/**").hasAnyRole("USER") */.anyRequest().authenticated().and().formLogin()
-				.successHandler(successHandler).loginPage("/login").permitAll().and().logout().permitAll();
+				.successHandler(successHandler).loginPage("/login").permitAll().and().logout().permitAll().and()
+				.exceptionHandling().accessDeniedPage("/error_403");
 	}
 
 }

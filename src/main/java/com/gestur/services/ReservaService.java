@@ -63,22 +63,22 @@ public class ReservaService {
 	}
 
 	// Reserva por NOMBRE de ACTIVIDAD
-	public List<Reserva> buscarReservaActividad(String nombre) throws ErrorServices {
-		validarNombre(nombre);
-		return resRep.reservaPorActividad(nombre);
+	public List<Reserva> buscarReservaActividad(String id) {
+		return resRep.reservaPorActividad(id);
 	}
 
-	// Reserva por LUGAR de ACTIVIDAD
-	public List<Reserva> buscarReservaLugar(String lugar) throws ErrorServices {
-		validarLugar(lugar);
-		return resRep.reservaPorLugar(lugar);
-	}
-
-        public List<Reserva> buscarReservaNombrePasajero(String nombre) throws ErrorServices {
-		validarLugar(nombre);
+	public List<Reserva> buscarReservaNombrePasajero(String nombre) {
 		return resRep.reservaPorNombrePasajero(nombre);
 	}
-        
+
+	public List<Reserva> buscarReservaDocumentoPasajero(String documento) {
+		return resRep.reservaPorDocumentoPasajero(documento);
+	}
+
+	public List<Reserva> buscarReservaPorFecha(Date desde, Date hasta) {
+		return resRep.findByFechaActividadBetween(desde, hasta);
+	}
+
 	// Modifica TODA una RESERVA a la vez
 	@Transactional
 	public void modificarReserva(Date fechaActividad, Integer cantPasajeros, Integer id) throws ErrorServices {

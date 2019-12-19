@@ -4,6 +4,7 @@ import com.gestur.entities.Pasajero;
 import com.gestur.entities.Reserva;
 import com.gestur.exceptions.ErrorServices;
 import com.gestur.services.ActividadService;
+import com.gestur.services.EmpleadoService;
 import com.gestur.services.PasajeroService;
 import com.gestur.services.ReservaService;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,11 +34,15 @@ public class ReservaController {
 	@Autowired
 	private PasajeroService pasServ;
 
+	@Autowired
+	private EmpleadoService empServ;
+
 	@GetMapping({ "/", "" })
 	public String paginaPpal(ModelMap model) {
 		model.addAttribute("titulo", "GesTur - Reservas");
 		model.addAttribute("cabecera", "Nueva reserva");
 		model.addAttribute("actividades", acSev.listaActividad());
+		model.addAttribute("empleados", empServ.listar());
 		return "reservas/reserva";
 	}
 
@@ -65,23 +71,17 @@ public class ReservaController {
 			e.printStackTrace();
 		}
 
-		resServ.crearReserva(pasajero.getId(), (long) 1, actividadId, date1, cantPasajeros, observaciones,
+		resServ.crearReserva(pasajero.getId(), empleadoId, actividadId, date1, cantPasajeros, observaciones,
 				opinionExito);
 
 		return "redirect:/reserva/listaReserva";
 	}
 
 	@GetMapping("/listaReserva")
-	public String listaReserva(@RequestParam(required = false) String nombre,@RequestParam(required = false) String pasajero, ModelMap model) throws ErrorServices {
+	public String listaReserva(ModelMap model) throws ErrorServices {
 		model.addAttribute("titulo", "Listado de Reservas");
 		List<Reserva> listaReserva;
-		if (nombre == null) {
-			listaReserva = resServ.listaReserva();
-		} else {
-			listaReserva = resServ.buscarReservaActividad(nombre);
-		} if(pasajero!=null){
-                    listaReserva = resServ.buscarReservaNombrePasajero(pasajero);
-                }
+		listaReserva = resServ.listaReserva();
 		model.put("listaReserva", listaReserva);
 		return "reservas/listaReserva";
 	}
@@ -139,6 +139,122 @@ public class ReservaController {
 	public String borrarReserva(@RequestParam Integer id) throws ErrorServices {
 		resServ.borrarReserva(id);
 		return "redirect:/listaReserva";
+	}
+
+	@GetMapping("/buscar-res-pax")
+	public String buscarPorPax(@RequestParam(required = false) String pasajero, Model model) {
+
+		List<Reserva> lista = null;
+
+		if (pasajero != null && !pasajero.isBlank()) {
+			lista = resServ.buscarReservaNombrePasajero(pasajero);
+			model.addAttribute("listaReserva", lista);
+			model.addAttribute("titulo", "Listado de Reservas");
+			return "reservas/listaReserva";
+		}
+
+		model.addAttribute("pax", "pax");
+		model.addAttribute("titulo", "Gestur - Buscar Reserva");
+		return "search";
+	}
+
+	@GetMapping("/buscar-noAuth")
+	public String buscarNoAuth(@RequestParam(required = false) String documento, Model model) {
+
+		List<Reserva> lista = null;
+
+		if (documento != null && !documento.isBlank()) {
+			lista = resServ.buscarReservaDocumentoPasajero(documento);
+			model.addAttribute("listaReserva", lista);
+			model.addAttribute("titulo", "Listado de Reservas");
+			return "reservas/listaReserva";
+		}
+
+		model.addAttribute("pax", "pax");
+		model.addAttribute("titulo", "Gestur - Buscar Reserva");
+		return "search";
+	}
+
+	@GetMapping("/buscar-res-fecha")
+	public String buscarPorFecha(@RequestParam(required = false) String desde,
+			@RequestParam(required = false) String hasta, Model model) {
+
+		List<Reserva> lista = null;
+		Date date1 = null;
+		Date date2 = null;
+
+		if (desde != null && !desde.isBlank()) {
+
+			try {
+				date1 = new SimpleDateFormat("yyyy-MM-dd").parse(desde);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+			if (hasta != null && !hasta.isBlank()) {
+				try {
+					date2 = new SimpleDateFormat("yyyy-MM-dd").parse(hasta);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			} else {
+				try {
+					date2 = new SimpleDateFormat("yyyy-MM-dd").parse(desde);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+
+			lista = resServ.buscarReservaPorFecha(date1, date2);
+			model.addAttribute("listaReserva", lista);
+			model.addAttribute("titulo", "Listado de Reservas");
+
+			return "reservas/listaReserva";
+		}
+
+		if (hasta != null && !hasta.isBlank()) {
+			try {
+				date1 = new SimpleDateFormat("yyyy-MM-dd").parse(hasta);
+				date2 = new SimpleDateFormat("yyyy-MM-dd").parse(hasta);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+			lista = resServ.buscarReservaPorFecha(date1, date2);
+			model.addAttribute("listaReserva", lista);
+			model.addAttribute("titulo", "Listado de Reservas");
+
+			return "reservas/listaReserva";
+		}
+
+		model.addAttribute("fecha", "fecha");
+		model.addAttribute("titulo", "Gestur - Buscar Reserva");
+		return "search";
+	}
+
+	@GetMapping("/buscar-res-actividad")
+	public String buscarPorAct(@RequestParam(required = false) String actividad, Model model) {
+
+		List<Reserva> lista = null;
+
+		if (actividad != null && !actividad.isBlank()) {
+			lista = resServ.buscarReservaActividad(actividad);
+
+			model.addAttribute("listaReserva", lista);
+			model.addAttribute("titulo", "Listado de Reservas");
+			return "reservas/listaReserva";
+		}
+
+		model.addAttribute("actividades", acSev.listaActividad());
+		model.addAttribute("act", "act");
+		model.addAttribute("titulo", "Gestur - Buscar Reserva");
+		return "search";
+	}
+
+	@GetMapping("/buscar")
+	public String buscar(Model model) {
+		model.addAttribute("titulo", "Buscar");
+		return "search-menu";
 	}
 
 }

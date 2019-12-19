@@ -12,16 +12,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 
-	@Query("SELECT c FROM Reserva c")
+	@Query("SELECT c FROM Reserva c ORDER BY c.fechaActividad ASC")
 	public List<Reserva> listaReserva();
 
-	@Query("SELECT c FROM Reserva c,Actividad d WHERE c.actividad.id=d.id AND d.nombre LIKE %:nombre% ORDER BY d.nombre")
-	public List<Reserva> reservaPorActividad(@Param("nombre") String nombre);
+	@Query("SELECT c FROM Reserva c WHERE c.actividad.id = :id")
+	public List<Reserva> reservaPorActividad(@Param("id") String id);
 
-	@Query("SELECT c FROM Reserva c,Actividad d WHERE c.actividad.id=d.id AND d.lugar LIKE %:nombre% ORDER BY d.lugar")
-	public List<Reserva> reservaPorLugar(@Param("nombre") String nombre);
-
-	@Query("SELECT c FROM Reserva c,Pasajero p WHERE c.pasajero.id=p.id AND p.nombre LIKE %:pasajero% ORDER BY p.nombre")
+	@Query("SELECT c FROM Reserva c WHERE c.pasajero.nombre LIKE %:pasajero%")
 	public List<Reserva> reservaPorNombrePasajero(@Param("pasajero") String pasajero);
 
 	// Modificar todo al mismo tiempo
@@ -37,5 +34,10 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 	@Modifying
 	@Query("UPDATE FROM Reserva c SET cantPasajeros=:cantPas WHERE c.id=:id")
 	public void modificarPasajeros(@Param("cantPas") Integer cantPasajeros, @Param("id") Integer id);
+
+	public List<Reserva> findByFechaActividadBetween(Date desde, Date hasta);
+
+	@Query("select r from Reserva r where r.pasajero.documento = ?1")
+	public List<Reserva> reservaPorDocumentoPasajero(String documento);
 
 }

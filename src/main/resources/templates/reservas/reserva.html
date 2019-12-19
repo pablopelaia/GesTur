@@ -43,15 +43,11 @@
 	<!--==========================
     Header
   ============================-->
-	<header id="header">
+	<header id="header" style="background-color: #343a40;">
 		<div class="container-fluid">
 
 			<div id="logo" class="pull-left">
-				<h1>
-					<a href="#intro" class="scrollto" th:text="${titulo}"></a>
-				</h1>
-				<!-- Uncomment below if you prefer to use an image logo -->
-				<!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
+				<h1 class="text-light" th:text="${titulo}"></h1>
 			</div>
 			<!-- #nav-menu-container -->
 		</div>
@@ -118,6 +114,22 @@
 							<div class="col-sm-6">
 								<input type="date" name="fechaActividad" class="form-control"
 									autocomplete="no" required />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Observaciones</label>
+							<div class="col-sm-6">
+								<textarea style="resize: none; height: 100px;"
+									name="observaciones" class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Empleado</label>
+							<div class="col-sm-6">
+								<select class="custom-control" name="empleadoId" required>
+									<option th:each="empleado:${empleados}"
+										th:value="${empleado.id}" th:text="${empleado.nombre}"></option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group row d-flex justify-content-between">

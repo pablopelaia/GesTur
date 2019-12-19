@@ -53,6 +53,14 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
+		<div class="alert alert-info alert-dismissible fade show"
+			id="success-alert" th:if="${info != null}" role="alert">
+			<div th:text="${info}"></div>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 		<div class="container-fluid">
 
 			<div id="logo" class="pull-left">
@@ -230,7 +238,11 @@
 
 					<div class="col-lg-4 box box-bg">
 						<h4 class="title">
-							<a href=""><i class="ion-ios-search"></i>BUSCAR RESERVA/DATOS</a>
+							<a sec:authorize="isAuthenticated()" th:href="@{/reserva/buscar}"><i
+								class="ion-ios-search"></i>BUSCAR RESERVA/DATOS</a> <a
+								sec:authorize="!isAuthenticated()"
+								th:href="@{/reserva/buscar-noAuth}"><i
+								class="ion-ios-search"></i>BUSCAR RESERVA</a>
 						</h4>
 						<p class="description">Inicie una busqueda</p>
 					</div>

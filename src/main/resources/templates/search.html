@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title th:text="${titulo}"></title>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="author" content="colorlib.com">
+<!-- Favicons -->
+<link href="/img/favicon.png" rel="icon">
+<link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500"
+	rel="stylesheet" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link href="/css/main-search.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="s002" sec:authorize="isAuthenticated()">
+		<div class="alert alert-danger alert-dismissible fade show"
+			id="success-alert" th:if="${error != null}" role="alert">
+			<div th:text="${error}"></div>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<form>
+			<fieldset>
+				<legend>BUSCAR RESERVA</legend>
+			</fieldset>
+			<div style="color: white; margin-bottom: 15px; margin-left: 15px;">Busque
+				por alguno de estos campos</div>
+			<div class="inner-form">
+				<div class="input-field first-wrap" th:if="${pax != null}">
+					<input id="search" type="text" placeholder="Nombre pasajero"
+						name="pasajero" autocomplete="no" />
+				</div>
+				<div class="input-field first-wrap" th:if="${fecha != null}">
+					<div class="icon-wrap">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24">
+                <path
+								d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path>
+              </svg>
+					</div>
+					<input class="datepicker" id="depart" type="text" name="desde"
+						placeholder="desde" />
+				</div>
+				<div class="input-field first-wrap" th:if="${fecha != null}">
+					<div class="icon-wrap">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24">
+                <path
+								d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path>
+              </svg>
+					</div>
+					<input class="datepicker" id="return" type="text" name="hasta"
+						placeholder="hasta" />
+				</div>
+				<div class="input-field first-wrap" th:if="${act != null}">
+					<select data-trigger="" name="actividad">
+						<optgroup>
+							<option disabled="disabled" selected="selected" value="">Actividad</option>
+						</optgroup>
+						<optgroup label="__________________">
+							<option th:each="actividad:${actividades}"
+								th:value="${actividad.id}" th:text="${actividad.nombre}"></option>
+						</optgroup>
+
+
+					</select>
+				</div>
+				<div class="input-field fifth-wrap">
+					<button class="btn-search" type="submit">BUSCAR</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="s002" sec:authorize="!isAuthenticated()">
+		<div class="alert alert-danger alert-dismissible fade show"
+			id="success-alert" th:if="${error != null}" role="alert">
+			<div th:text="${error}"></div>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<form>
+			<fieldset>
+				<legend>BUSCAR RESERVA</legend>
+			</fieldset>
+			<div style="color: white; margin-bottom: 15px; margin-left: 15px;">Ingrese
+				su n° de documento</div>
+			<div class="inner-form">
+				<div class="input-field first-wrap" th:if="${pax != null}">
+					<input id="search" type="text" placeholder="N° documento"
+						name="documento" autocomplete="no" />
+				</div>
+				<div class="input-field fifth-wrap">
+					<button class="btn-search" type="submit">BUSCAR</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<script src="/js/extention/choices.js"></script>
+	<script src="/js/extention/flatpickr.js"></script>
+	<script>
+		flatpickr(".datepicker", {});
+	</script>
+	<script>
+		const choices = new Choices('[data-trigger]', {
+			searchEnabled : false,
+			itemSelectText : '',
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			$("#success-alert").fadeTo(1000, 500).slideUp(500, function() {
+				$("#success-alert").slideUp(500);
+			});
+		});
+	</script>
+</body>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

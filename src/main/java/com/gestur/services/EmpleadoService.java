@@ -38,6 +38,13 @@ public class EmpleadoService implements UserDetailsService {
 
 	}
 
+	public List<Empleado> listar() {
+		Empleado admin = er.findByUsername("admin");
+		List<Empleado> emp = er.findAll();
+		emp.remove(admin);
+		return emp;
+	}
+
 //
 //	public List<Empleado> listaEmpleado() {
 //		return er.empleadosPorNombre();
