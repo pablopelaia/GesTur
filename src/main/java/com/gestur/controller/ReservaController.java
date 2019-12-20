@@ -157,7 +157,7 @@ public class ReservaController {
 
 		List<Reserva> lista = null;
 
-		if (pasajero != null && !pasajero.isBlank()) {
+		if (pasajero != null && !pasajero.trim().equals("")) {
 			lista = resServ.buscarReservaNombrePasajero(pasajero);
 			model.addAttribute("listaReserva", lista);
 			model.addAttribute("titulo", "Listado de Reservas");
@@ -174,7 +174,7 @@ public class ReservaController {
 
 		List<Reserva> lista = null;
 
-		if (documento != null && !documento.isBlank()) {
+		if (documento != null && !documento.trim().equals("")) {
 			lista = resServ.buscarReservaDocumentoPasajero(documento);
 			model.addAttribute("listaReserva", lista);
 			model.addAttribute("titulo", "Listado de Reservas");
@@ -192,9 +192,9 @@ public class ReservaController {
 
 		List<Reserva> lista = null;
 
-		if (desde != null && !desde.isBlank()) {
+		if (desde != null && !desde.trim().equals("")) {
 
-			if (hasta == null || hasta.isBlank()) {
+			if (hasta == null || hasta.trim().equals("")) {
 				hasta = desde;
 			}
 
@@ -205,7 +205,7 @@ public class ReservaController {
 			return "reservas/listaReserva";
 		}
 
-		if (hasta != null && !hasta.isBlank()) {
+		if (hasta != null && !hasta.trim().equals("")) {
 
 			desde = hasta;
 
@@ -226,7 +226,7 @@ public class ReservaController {
 
 		List<Reserva> lista = null;
 
-		if (actividad != null && !actividad.isBlank()) {
+		if (actividad != null && !actividad.trim().equals("")) {
 			lista = resServ.buscarReservaActividad(actividad);
 
 			model.addAttribute("listaReserva", lista);
