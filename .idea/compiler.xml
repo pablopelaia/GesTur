@@ -10,12 +10,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="GesTur2" target="1.8" />
+      <module name="GesTur" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="GesTur2" options="-parameters" />
+      <module name="GesTur" options="-parameters" />
     </option>
   </component>
 </project>

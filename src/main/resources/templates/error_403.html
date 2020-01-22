@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title th:text="${titulo}"></title>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="author" content="colorlib.com">
+<!-- Favicons -->
+<link href="/img/favicon.png" rel="icon">
+<link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500"
+	rel="stylesheet" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link href="/css/main-search.css" rel="stylesheet" />
+</head>
+<body class="bg-dark">
+
+	<header id="header" style="background-color: #343a40;">
+		<div class="container-fluid">
+
+			<div id="logo" class="pull-left">
+				<h1 class="text-light" th:text="${titulo}"></h1>
+			</div>
+		</div>
+	</header>
+
+	<div class="container py-4">
+		<div class="card bg-danger text-white">
+			<div class="card-header">ACCESO DENEGADO</div>
+			<div class="card-body">
+				<h5 class="card-title">No tiene permisos para acceder a esta
+					p&aacute;gina.</h5>
+				<a class="btn btn-outline-light" th:href="@{/}" role="button">Volver
+					al inicio</a>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
